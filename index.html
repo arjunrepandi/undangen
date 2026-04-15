@@ -387,7 +387,6 @@
             margin-top: 5px;
         }
 
-        /* TOMBOL TAMBAH KE KALENDER */
         .btn-calendar {
             background: linear-gradient(135deg, #2196F3, #1976D2);
             color: white;
@@ -410,10 +409,6 @@
         .btn-calendar:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 18px rgba(33, 150, 243, 0.4);
-        }
-
-        .btn-calendar i {
-            font-size: 16px;
         }
 
         .calendar-success {
@@ -537,10 +532,11 @@
             cursor: pointer;
         }
 
+        /* ========== STYLE TITIP HADIAH DENGAN LOGO DANA ========== */
         .rekening-list {
             background: #fcf8f3;
             border-radius: 24px;
-            padding: 16px;
+            padding: 20px;
             margin-top: 16px;
         }
 
@@ -548,18 +544,112 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #eeddcc;
-            padding: 12px 8px;
+            padding: 16px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: 0.2s;
+        }
+
+        .rek-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .rek-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-dana {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #1a6d5e, #0d4f44);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .logo-dana svg {
+            width: 35px;
+            height: 35px;
+        }
+
+        .logo-dana-text {
+            font-size: 20px;
+            font-weight: 800;
+            color: white;
+            letter-spacing: 1px;
+        }
+
+        .rek-info {
+            text-align: left;
+        }
+
+        .bank-name {
+            font-weight: 700;
+            color: var(--primary-dark);
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .bank-name span {
+            background: #1a6d5e;
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 20px;
+        }
+
+        .rek-number {
+            font-size: 14px;
+            color: #666;
+            margin-top: 4px;
+            font-family: monospace;
+            letter-spacing: 1px;
         }
 
         .copy-btn {
             background: var(--primary);
             color: white;
             border: none;
-            padding: 6px 14px;
+            padding: 8px 18px;
             border-radius: 40px;
             font-size: 12px;
             cursor: pointer;
+            transition: 0.2s;
+            font-weight: 500;
+        }
+
+        .copy-btn:hover {
+            background: var(--primary-dark);
+            transform: scale(1.02);
+        }
+
+        .qr-dana {
+            margin-top: 16px;
+            padding: 16px;
+            background: white;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px dashed var(--primary);
+        }
+
+        .qr-dana p {
+            font-size: 12px;
+            color: #8b7a6b;
+            margin-top: 8px;
+        }
+
+        .qr-dana i {
+            font-size: 60px;
+            color: #1a6d5e;
         }
 
         footer {
@@ -604,6 +694,10 @@
             .foto-bulat { width: 130px; height: 130px; }
             .countdown-item { min-width: 60px; }
             .countdown-number { font-size: 26px; }
+            .rek-left { gap: 10px; }
+            .logo-dana { width: 40px; height: 40px; }
+            .logo-dana-text { font-size: 16px; }
+            .rek-number { font-size: 12px; }
         }
     </style>
 </head>
@@ -694,7 +788,6 @@
             </div>
             <div class="event-name-small">⏳ Resepsi Pernikahan • Sabtu, 25 April 2026</div>
             
-            <!-- TOMBOL TAMBAH KE KALENDER -->
             <button class="btn-calendar" id="addToCalendarBtn">
                 <i class="fas fa-calendar-plus"></i> Tambahkan ke Kalender
             </button>
@@ -767,14 +860,43 @@
         </div>
     </div>
 
+    <!-- TITIP HADIAH DENGAN LOGO DANA -->
     <div class="section">
         <h2 class="section-title">Titip Hadiah</h2>
         <div class="rekening-list">
             <div class="rek-item">
-                <div><span class="bank-name">Dana</span><br>0813-6132-6617</div>
-                <button class="copy-btn" data-rek="0813-6132-6617">Salin No.</button>
+                <div class="rek-left">
+                    <div class="logo-dana">
+                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="50" cy="50" r="45" fill="white" stroke="white" stroke-width="2"/>
+                            <text x="50" y="68" text-anchor="middle" font-size="38" font-weight="900" font-family="Arial" fill="#1a6d5e">D</text>
+                        </svg>
+                    </div>
+                    <div class="rek-info">
+                        <div class="bank-name">
+                            <i class="fas fa-wallet"></i> Dana 
+                            <span>Dompet Digital</span>
+                        </div>
+                        <div class="rek-number">
+                            <i class="fas fa-qrcode"></i> 0813-6132-6617
+                        </div>
+                    </div>
+                </div>
+                <button class="copy-btn" data-rek="081361326617">
+                    <i class="fas fa-copy"></i> Salin
+                </button>
+            </div>
+            
+            <!-- QR Code Dana (simulasi) -->
+            <div class="qr-dana">
+                <i class="fas fa-qrcode"></i>
+                <p><i class="fas fa-mobile-alt"></i> Scan QR Code atau klik Salin untuk transfer via Dana</p>
+                <p style="font-size: 11px; margin-top: 5px;">Atas nama: <strong>Yudi & Ratih</strong></p>
             </div>
         </div>
+        <p style="font-size: 12px; color: #8b7a6b; margin-top: 12px;">
+            <i class="fas fa-heart"></i> Doa restu Anda adalah hadiah terindah bagi kami
+        </p>
     </div>
 
     <div class="section" style="border-bottom: none;">
@@ -792,16 +914,13 @@
 <script>
     // ==================== FUNGSI TAMBAH KE KALENDER ====================
     function addToCalendar() {
-        // Data acara
         const eventTitle = "Pernikahan Yudi & Ratih";
         const eventLocation = "Jambur Kuta Gugung, Kec. Naman Teran, Kab. Karo, Sumatera Utara";
         const eventDescription = "Dengan hormat,\nKami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami.\n\n📖 Akad Nikah: Jumat, 24 April 2026, 14:00 WIB\n🍽️ Resepsi: Sabtu, 25 April 2026, 08:00 WIB s/d selesai\n\n📍 Lokasi: Jambur Kuta Gugung, Kec. Naman Teran, Kab. Karo\n\nMerupakan suatu kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir.\n\nDoa restu dari Anda adalah hadiah terindah untuk kami.\n\nTerima kasih.\n\n~ Yudi & Ratih ~";
         
-        // Tanggal acara (Resepsi: 25 April 2026, 08:00)
-        const startDate = new Date(2026, 3, 25, 8, 0, 0); // Bulan ke-3 = April
-        const endDate = new Date(2026, 3, 25, 17, 0, 0); // Selesai jam 17:00
+        const startDate = new Date(2026, 3, 25, 8, 0, 0);
+        const endDate = new Date(2026, 3, 25, 17, 0, 0);
         
-        // Format untuk Google Calendar
         const formatDate = (date) => {
             return date.toISOString().replace(/-|:|\.\d+/g, '');
         };
@@ -809,15 +928,12 @@
         const startStr = formatDate(startDate);
         const endStr = formatDate(endDate);
         
-        // Encode untuk URL
         const encodedTitle = encodeURIComponent(eventTitle);
         const encodedLocation = encodeURIComponent(eventLocation);
         const encodedDescription = encodeURIComponent(eventDescription);
         
-        // URL Google Calendar
         const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodedTitle}&dates=${startStr}/${endStr}&details=${encodedDescription}&location=${encodedLocation}&sf=true&output=xml`;
         
-        // File ICS untuk Apple Calendar / Outlook
         const icsContent = `BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//Wedding Invitation//EN
@@ -832,15 +948,12 @@ LOCATION:${eventLocation}
 END:VEVENT
 END:VCALENDAR`;
         
-        // Tampilkan pilihan untuk pengguna
         const userChoice = confirm("Pilih metode tambah ke kalender:\n\n• Klik 'OK' untuk Google Calendar\n• Klik 'Batal' untuk download file .ics (Apple Calendar/Outlook)");
         
         if (userChoice) {
-            // Buka Google Calendar
             window.open(googleCalendarUrl, '_blank');
             showCalendarNotification("✅ Berhasil! Silakan simpan acara di Google Calendar.");
         } else {
-            // Download file .ics
             const blob = new Blob([icsContent], { type: 'text/calendar' });
             const link = document.createElement('a');
             const url = URL.createObjectURL(blob);
@@ -858,9 +971,7 @@ END:VCALENDAR`;
         const notifDiv = document.getElementById('calendarNotification');
         if (notifDiv) {
             notifDiv.innerHTML = `<div class="calendar-success"><i class="fas fa-check-circle"></i> ${message}</div>`;
-            setTimeout(() => {
-                notifDiv.innerHTML = '';
-            }, 4000);
+            setTimeout(() => { notifDiv.innerHTML = ''; }, 4000);
         }
     }
     
@@ -872,9 +983,7 @@ END:VCALENDAR`;
         if (!name) return "";
         let clean = name.trim();
         if (clean.toLowerCase().includes('partner')) return clean;
-        if (clean.includes('&')) {
-            return clean + " & Partner";
-        }
+        if (clean.includes('&')) return clean + " & Partner";
         return clean + " & Partner";
     }
 
@@ -909,12 +1018,10 @@ END:VCALENDAR`;
     });
 
     namaInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            btnMulai.click();
-        }
+        if (e.key === 'Enter') btnMulai.click();
     });
 
-    // ==================== BUKA UNDANGAN DARI COVER ====================
+    // ==================== BUKA UNDANGAN ====================
     const btnBukaUndangan = document.getElementById('btnBukaUndangan');
     
     btnBukaUndangan.addEventListener('click', function() {
@@ -971,106 +1078,55 @@ END:VCALENDAR`;
     
     if (musicToggle) musicToggle.addEventListener('click', toggleMusic);
 
-    // ==================== SLIDER GALERI ====================
+    // ==================== SLIDER ====================
     const sliderContainer = document.getElementById('sliderContainer');
     const slides = document.querySelectorAll('.slider-slide');
     const prevBtn = document.getElementById('prevSlide');
     const nextBtn = document.getElementById('nextSlide');
     const dotsContainer = document.getElementById('sliderDots');
-    let currentIndex = 0;
-    const totalSlides = slides.length;
-    let autoSlideInterval;
+    let currentIndex = 0, autoSlideInterval;
     
     function updateSlider() {
-        if (sliderContainer) {
-            sliderContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
-        }
-        document.querySelectorAll('.dot').forEach((dot, idx) => {
-            dot.classList.toggle('active', idx === currentIndex);
-        });
+        if (sliderContainer) sliderContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+        document.querySelectorAll('.dot').forEach((dot, idx) => dot.classList.toggle('active', idx === currentIndex));
     }
-    
-    function nextSlide() {
-        currentIndex = (currentIndex + 1) % totalSlides;
-        updateSlider();
-        resetAutoSlide();
-    }
-    
-    function prevSlide() {
-        currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-        updateSlider();
-        resetAutoSlide();
-    }
-    
+    function nextSlide() { currentIndex = (currentIndex + 1) % slides.length; updateSlider(); resetAutoSlide(); }
+    function prevSlide() { currentIndex = (currentIndex - 1 + slides.length) % slides.length; updateSlider(); resetAutoSlide(); }
     function createDots() {
         if (!dotsContainer) return;
         dotsContainer.innerHTML = '';
-        for (let i = 0; i < totalSlides; i++) {
+        for (let i = 0; i < slides.length; i++) {
             const dot = document.createElement('div');
             dot.classList.add('dot');
             if (i === currentIndex) dot.classList.add('active');
-            dot.addEventListener('click', () => {
-                currentIndex = i;
-                updateSlider();
-                resetAutoSlide();
-            });
+            dot.addEventListener('click', () => { currentIndex = i; updateSlider(); resetAutoSlide(); });
             dotsContainer.appendChild(dot);
         }
     }
-    
-    function startAutoSlide() {
-        if (autoSlideInterval) clearInterval(autoSlideInterval);
-        autoSlideInterval = setInterval(nextSlide, 2000);
-    }
-    
-    function resetAutoSlide() {
-        clearInterval(autoSlideInterval);
-        startAutoSlide();
-    }
-    
+    function startAutoSlide() { if (autoSlideInterval) clearInterval(autoSlideInterval); autoSlideInterval = setInterval(nextSlide, 3000); }
+    function resetAutoSlide() { clearInterval(autoSlideInterval); startAutoSlide(); }
     if (prevBtn) prevBtn.addEventListener('click', prevSlide);
     if (nextBtn) nextBtn.addEventListener('click', nextSlide);
     createDots();
     if (sliderContainer) updateSlider();
 
-    // ==================== COUNTDOWN TIMER ====================
-    function getTargetDate() {
-        return new Date(2026, 3, 25, 8, 0, 0);
-    }
-    
+    // ==================== COUNTDOWN ====================
+    function getTargetDate() { return new Date(2026, 3, 25, 8, 0, 0); }
     function updateCountdown() {
-        const now = new Date();
-        const target = getTargetDate();
-        const diff = target - now;
-        
-        const daysEl = document.getElementById('days');
-        const hoursEl = document.getElementById('hours');
-        const minutesEl = document.getElementById('minutes');
-        const secondsEl = document.getElementById('seconds');
-        
-        if (diff <= 0) {
-            if (daysEl) daysEl.innerText = '00';
-            if (hoursEl) hoursEl.innerText = '00';
-            if (minutesEl) minutesEl.innerText = '00';
-            if (secondsEl) secondsEl.innerText = '00';
-            return;
-        }
-        
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (86400000)) / (3600000));
+        const diff = getTargetDate() - new Date();
+        const days = Math.floor(diff / 86400000);
+        const hours = Math.floor((diff % 86400000) / 3600000);
         const minutes = Math.floor((diff % 3600000) / 60000);
         const seconds = Math.floor((diff % 60000) / 1000);
-        
-        if (daysEl) daysEl.innerText = days < 10 ? '0' + days : days;
-        if (hoursEl) hoursEl.innerText = hours < 10 ? '0' + hours : hours;
-        if (minutesEl) minutesEl.innerText = minutes < 10 ? '0' + minutes : minutes;
-        if (secondsEl) secondsEl.innerText = seconds < 10 ? '0' + seconds : seconds;
+        document.getElementById('days') && (document.getElementById('days').innerText = days < 10 ? '0' + days : days);
+        document.getElementById('hours') && (document.getElementById('hours').innerText = hours < 10 ? '0' + hours : hours);
+        document.getElementById('minutes') && (document.getElementById('minutes').innerText = minutes < 10 ? '0' + minutes : minutes);
+        document.getElementById('seconds') && (document.getElementById('seconds').innerText = seconds < 10 ? '0' + seconds : seconds);
     }
-    
     updateCountdown();
     setInterval(updateCountdown, 1000);
 
-    // ==================== KONFIRMASI KEHADIRAN ====================
+    // ==================== KONFIRMASI ====================
     const form = document.getElementById('formKehadiran');
     const statusSelect = document.getElementById('kehadiranStatus');
     const jumlahGroup = document.getElementById('jumlahOrangGroup');
@@ -1080,11 +1136,7 @@ END:VCALENDAR`;
     const listUcapanDiv = document.getElementById('listUcapan');
 
     if (statusSelect) {
-        statusSelect.addEventListener('change', function() {
-            if (jumlahGroup) {
-                jumlahGroup.style.display = this.value === 'Hadir' ? 'block' : 'none';
-            }
-        });
+        statusSelect.addEventListener('change', () => { if (jumlahGroup) jumlahGroup.style.display = statusSelect.value === 'Hadir' ? 'block' : 'none'; });
     }
 
     function loadUcapan() {
@@ -1093,73 +1145,51 @@ END:VCALENDAR`;
             const list = JSON.parse(stored);
             listUcapanDiv.innerHTML = list.slice(0, 20).map(item => 
                 `<div style="background:#f7efe8;border-radius:16px;padding:12px;margin-bottom:8px;">
-                    <strong>${escapeHtml(item.nama)}</strong><br>
-                    ${escapeHtml(item.ucapan)} 
+                    <strong>${escapeHtml(item.nama)}</strong><br>${escapeHtml(item.ucapan)} 
                     <span style="font-size:11px;color:#8b6e5a;">(${item.status})</span>
                 </div>`
             ).join('');
         }
     }
 
-    function escapeHtml(str) {
-        if (!str) return '';
-        return str.replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;');
-    }
+    function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'})[m]); }
 
     if (form) {
-        form.addEventListener('submit', function(e) {
+        form.addEventListener('submit', (e) => {
             e.preventDefault();
             const nama = namaTamuForm ? namaTamuForm.value.trim() : '';
             const status = statusSelect ? statusSelect.value : '';
-            if (!nama || !status) {
-                if (notifDiv) {
-                    notifDiv.innerText = 'Lengkapi data!';
-                    notifDiv.style.color = 'red';
-                }
-                return;
-            }
+            if (!nama || !status) { if (notifDiv) { notifDiv.innerText = 'Lengkapi data!'; notifDiv.style.color = 'red'; } return; }
             let jumlah = '';
-            if (status === 'Hadir' && jumlahInput && jumlahInput.value) {
-                jumlah = `${jumlahInput.value} orang`;
-            }
+            if (status === 'Hadir' && jumlahInput && jumlahInput.value) jumlah = `${jumlahInput.value} orang`;
             const ucapan = (ucapanText ? ucapanText.value.trim() : '') || "Semoga bahagia selalu!";
-            
             let existing = JSON.parse(localStorage.getItem('weddingUcapan') || '[]');
-            existing.unshift({
-                nama: nama,
-                ucapan: ucapan + (jumlah ? ` (Hadir: ${jumlah})` : ` (${status})`),
-                status: status,
-                waktu: new Date().toISOString()
-            });
+            existing.unshift({ nama, ucapan: ucapan + (jumlah ? ` (Hadir: ${jumlah})` : ` (${status})`), status, waktu: new Date().toISOString() });
             if (existing.length > 30) existing.pop();
             localStorage.setItem('weddingUcapan', JSON.stringify(existing));
             loadUcapan();
-            
             if (statusSelect) statusSelect.value = '';
             if (jumlahGroup) jumlahGroup.style.display = 'none';
             if (jumlahInput) jumlahInput.value = '';
             if (ucapanText) ucapanText.value = '';
-            if (notifDiv) {
-                notifDiv.innerText = 'Terima kasih! Konfirmasi tersampaikan.';
-                notifDiv.style.color = 'green';
-                setTimeout(() => { notifDiv.innerText = ''; }, 3000);
-            }
+            if (notifDiv) { notifDiv.innerText = 'Terima kasih! Konfirmasi tersampaikan.'; notifDiv.style.color = 'green'; setTimeout(() => notifDiv.innerText = '', 3000); }
         });
     }
 
+    // Copy button untuk rekening
     document.querySelectorAll('.copy-btn').forEach(btn => {
         btn.addEventListener('click', function() {
-            navigator.clipboard.writeText(this.dataset.rek).then(() => {
-                this.innerText = 'Tersalin!';
-                setTimeout(() => this.innerText = 'Salin No.', 1500);
+            const rekText = this.getAttribute('data-rek') || '081361326617';
+            navigator.clipboard.writeText(rekText).then(() => {
+                const originalText = this.innerHTML;
+                this.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
+                setTimeout(() => { this.innerHTML = originalText; }, 1500);
             });
         });
     });
 
     if (!localStorage.getItem('weddingUcapan')) {
-        localStorage.setItem('weddingUcapan', JSON.stringify([
-            { nama: "Keluarga Besar", ucapan: "Selamat menempuh hidup baru, semoga barokah selalu.", status: "Hadir" }
-        ]));
+        localStorage.setItem('weddingUcapan', JSON.stringify([{ nama: "Keluarga Besar", ucapan: "Selamat menempuh hidup baru, semoga barokah selalu.", status: "Hadir" }]));
     }
     loadUcapan();
 
