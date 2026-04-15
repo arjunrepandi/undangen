@@ -37,7 +37,6 @@
             font-weight: normal;
         }
 
-        /* ========== HALAMAN INPUT NAMA ========== */
         .input-page {
             min-height: 100vh;
             background: linear-gradient(135deg, #fef9f4 0%, #f5e7d9 100%);
@@ -129,7 +128,6 @@
             color: #c4b5a5;
         }
 
-        /* ========== SAMPUL UNDANGAN ========== */
         .cover-page {
             min-height: 100vh;
             background: linear-gradient(135deg, rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('5.jpeg') center/cover no-repeat;
@@ -222,12 +220,6 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
-        .btn-buka-undangan:hover {
-            background: #9b7b64;
-            transform: scale(1.02);
-        }
-
-        /* ========== KONTEN UTAMA UNDANGAN ========== */
         .main-content {
             display: none;
             background: #fffef7;
@@ -298,7 +290,6 @@
             letter-spacing: 8px;
         }
 
-        /* ===== ANIMASI LOVE BERDENYUT ===== */
         .sparator i {
             animation: lovePulse 1.2s ease-in-out infinite;
             display: inline-block;
@@ -306,44 +297,10 @@
             color: #d4af7a;
         }
 
-        .sparator i:nth-child(1) {
-            animation-delay: 0s;
-        }
-
-        .sparator i:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .sparator i:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-
         @keyframes lovePulse {
-            0% {
-                transform: scale(1);
-                opacity: 0.7;
-                text-shadow: 0 0 0px rgba(212, 175, 122, 0);
-            }
-            50% {
-                transform: scale(1.4);
-                opacity: 1;
-                text-shadow: 0 0 10px rgba(212, 175, 122, 0.8);
-            }
-            100% {
-                transform: scale(1);
-                opacity: 0.7;
-                text-shadow: 0 0 0px rgba(212, 175, 122, 0);
-            }
-        }
-
-        /* Efek hover tambahan */
-        .sparator:hover i {
-            animation: loveBounce 0.6s ease-in-out;
-        }
-
-        @keyframes loveBounce {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.5) rotate(10deg); }
+            0% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.4); opacity: 1; text-shadow: 0 0 10px rgba(212, 175, 122, 0.8); }
+            100% { transform: scale(1); opacity: 0.7; }
         }
 
         .acara-card {
@@ -378,7 +335,6 @@
             font-size: 18px;
         }
 
-        /* Countdown Timer Styles */
         .countdown-container {
             background: linear-gradient(135deg, #fff5ea, #ffe8da);
             border-radius: 30px;
@@ -388,6 +344,7 @@
             box-shadow: 0 5px 15px rgba(174, 143, 122, 0.15);
             border: 1px solid rgba(212, 175, 122, 0.3);
         }
+
         .countdown-title {
             font-size: 18px;
             font-weight: 600;
@@ -395,16 +352,19 @@
             margin-bottom: 15px;
             letter-spacing: 1px;
         }
+
         .countdown-title i {
             margin-right: 8px;
             color: var(--gold);
         }
+
         .countdown-timer {
             display: flex;
             justify-content: space-evenly;
             gap: 10px;
             flex-wrap: wrap;
         }
+
         .countdown-item {
             background: white;
             border-radius: 20px;
@@ -412,48 +372,70 @@
             min-width: 70px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.05);
         }
+
         .countdown-number {
             font-size: 32px;
             font-weight: 700;
             color: var(--primary);
             line-height: 1;
-            font-family: 'Work Sans', sans-serif;
         }
+
         .countdown-label {
             font-size: 12px;
             color: #8b7a6b;
             text-transform: uppercase;
-            letter-spacing: 1px;
             margin-top: 5px;
         }
+
+        /* TOMBOL TAMBAH KE KALENDER */
+        .btn-calendar {
+            background: linear-gradient(135deg, #2196F3, #1976D2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 16px;
+            width: 100%;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+        }
+
+        .btn-calendar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(33, 150, 243, 0.4);
+        }
+
+        .btn-calendar i {
+            font-size: 16px;
+        }
+
+        .calendar-success {
+            background: #4CAF50;
+            margin-top: 10px;
+            padding: 8px;
+            border-radius: 20px;
+            font-size: 12px;
+            animation: fadeInOut 3s ease-in-out;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(-10px); }
+            15% { opacity: 1; transform: translateY(0); }
+            85% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-10px); }
+        }
+
         .event-name-small {
             font-size: 14px;
             color: #ae8f7a;
             margin-top: 12px;
-            font-weight: 500;
-        }
-        @media (max-width: 450px) {
-            .countdown-item { min-width: 60px; }
-            .countdown-number { font-size: 26px; }
-        }
-
-        .map-iframe {
-            width: 100%;
-            border-radius: 20px;
-            margin-top: 20px;
-            border: 0;
-            height: 250px;
-        }
-
-        .btn-map {
-            background: var(--primary);
-            color: white;
-            display: inline-block;
-            padding: 10px 20px;
-            border-radius: 40px;
-            margin-top: 16px;
-            font-size: 14px;
-            text-decoration: none;
             font-weight: 500;
         }
 
@@ -570,10 +552,6 @@
             padding: 12px 8px;
         }
 
-        .bank-name {
-            font-weight: 600;
-        }
-
         .copy-btn {
             background: var(--primary);
             color: white;
@@ -624,36 +602,29 @@
             .guest-name-display { font-size: 24px; }
             .section { padding: 32px 20px; }
             .foto-bulat { width: 130px; height: 130px; }
+            .countdown-item { min-width: 60px; }
+            .countdown-number { font-size: 26px; }
         }
     </style>
 </head>
 <body>
 
-<!-- ========== HALAMAN 1: INPUT NAMA ========== -->
+<!-- HALAMAN INPUT NAMA -->
 <div class="input-page" id="inputPage">
     <div class="input-container">
-        <div class="wedding-icon">
-            <i class="fas fa-heart"></i>
-        </div>
+        <div class="wedding-icon"><i class="fas fa-heart"></i></div>
         <h2>Undangan Pernikahan</h2>
         <p>Yudi & Ratih</p>
-        
         <div class="input-group">
             <label><i class="fas fa-user"></i> Masukkan Nama Anda</label>
             <input type="text" id="namaTamuInput" placeholder="Contoh: Bapak/Ibu/Saudara/i" autocomplete="off">
         </div>
-        
-        <button class="btn-mulai" id="btnMulai">
-            <i class="fas fa-envelope"></i> Lihat Undangan
-        </button>
-        
-        <div class="ornamen">
-            <i class="fas fa-ring"></i> <i class="fas fa-heart"></i> <i class="fas fa-ring"></i>
-        </div>
+        <button class="btn-mulai" id="btnMulai"><i class="fas fa-envelope"></i> Lihat Undangan</button>
+        <div class="ornamen"><i class="fas fa-ring"></i> <i class="fas fa-heart"></i> <i class="fas fa-ring"></i></div>
     </div>
 </div>
 
-<!-- ========== HALAMAN 2: SAMPUL UNDANGAN ========== -->
+<!-- SAMPUL UNDANGAN -->
 <div class="cover-page" id="coverPage" style="display: none;">
     <div class="cover-content">
         <div class="to-guest">💌 Kepada Yth.</div>
@@ -661,19 +632,13 @@
         <div class="invite-text">The Wedding of</div>
         <h1 class="couple-name">Yudi <br> & <br> Ratih</h1>
         <div class="date-cover">Sabtu, 25 April 2026</div>
-        <button class="btn-buka-undangan" id="btnBukaUndangan">
-            <i class="fas fa-arrow-right"></i> Buka Undangan
-        </button>
+        <button class="btn-buka-undangan" id="btnBukaUndangan"><i class="fas fa-arrow-right"></i> Buka Undangan</button>
     </div>
 </div>
 
-<!-- ========== HALAMAN 3: KONTEN UTAMA UNDANGAN ========== -->
+<!-- KONTEN UTAMA -->
 <div class="main-content" id="mainContent">
-    
-    <!-- Tombol Musik -->
-    <button class="music-control" id="musicToggle">
-        <i class="fas fa-music" id="musicIcon"></i>
-    </button>
+    <button class="music-control" id="musicToggle"><i class="fas fa-music" id="musicIcon"></i></button>
 
     <div class="section">
         <h2 class="section-title">Assalamu'alaikum</h2>
@@ -695,14 +660,7 @@
                 <div class="orang-tua">Putri dari Bapak Tumino Sinaga & Ibu Rohana Sagala</div>
             </div>
         </div>
-        
-        <!-- ANIMASI LOVE YANG INDAH -->
-        <div class="sparator">
-            <i class="fas fa-heart"></i>
-            <i class="fas fa-heart"></i>
-            <i class="fas fa-heart"></i>
-        </div>
-        
+        <div class="sparator"><i class="fas fa-heart"></i><i class="fas fa-heart"></i><i class="fas fa-heart"></i></div>
         <p style="font-size: 14px; color: #5e5e5e;">Mengundang ke hadirat Allah SWT, kami mohon doa restu</p>
     </div>
 
@@ -723,7 +681,7 @@
             <div class="detail-info"><i class="fas fa-map-marker-alt"></i> Jambur Kuta Gugung, Kec. Naman Teran, Kab. Karo</div>
         </div>
 
-        <!-- COUNTDOWN TIMER UNTUK RESEPSI -->
+        <!-- COUNTDOWN + TOMBOL TAMBAH KE KALENDER -->
         <div class="countdown-container" id="countdownResepsi">
             <div class="countdown-title">
                 <i class="fas fa-hourglass-half"></i> Menuju Hari Bahagia
@@ -735,11 +693,28 @@
                 <div class="countdown-item"><div class="countdown-number" id="seconds">00</div><div class="countdown-label">Detik</div></div>
             </div>
             <div class="event-name-small">⏳ Resepsi Pernikahan • Sabtu, 25 April 2026</div>
+            
+            <!-- TOMBOL TAMBAH KE KALENDER -->
+            <button class="btn-calendar" id="addToCalendarBtn">
+                <i class="fas fa-calendar-plus"></i> Tambahkan ke Kalender
+            </button>
+            <div id="calendarNotification" style="margin-top: 10px;"></div>
         </div>
 
-        <!-- MAPS IFRAME YANG DIPERBAIKI -->
-        <iframe class="map-iframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.727866224764!2d98.400849!3d3.201100!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3030fc99169624d5%3A0x93c846359262035f!2sKuta%20Gugung%2C%20Kec.%20Naman%20Teran%2C%20Kabupaten%20Karo%2C%20Sumatera%20Utara%2C%20Indonesia!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        <a href="https://maps.app.goo.gl/sZjh4Su8CHioaBeE9" target="_blank" class="btn-map">📍 Buka di Google Maps</a>
+        <!-- Denah Lokasi Sederhana -->
+        <div style="background: #f0e8df; border-radius: 24px; padding: 16px; margin: 20px 0;">
+            <div style="font-weight: 600; margin-bottom: 12px; color: var(--primary-dark);">
+                <i class="fas fa-map-marker-alt"></i> Lokasi Resepsi
+            </div>
+            <div style="background: #e0d5c8; border-radius: 16px; padding: 20px; text-align: center; font-size: 13px;">
+                <i class="fas fa-location-dot" style="color: #ff6b6b;"></i> <strong>Jambur Kuta Gugung</strong><br>
+                Kec. Naman Teran, Kab. Karo, Sumatera Utara<br><br>
+                <span style="font-size: 11px; color: #8b6e5a;">📍 Dekat dengan: Masjid Nur Hidayah, Fefica Cafe</span>
+            </div>
+            <a href="https://maps.app.goo.gl/sZjh4Su8CHioaBeE9" target="_blank" style="display: block; background: var(--primary); color: white; text-align: center; padding: 10px; border-radius: 40px; margin-top: 12px; text-decoration: none; font-size: 14px;">
+                <i class="fas fa-directions"></i> Buka Google Maps
+            </a>
+        </div>
     </div>
 
     <div class="section">
@@ -815,6 +790,80 @@
 </audio>
 
 <script>
+    // ==================== FUNGSI TAMBAH KE KALENDER ====================
+    function addToCalendar() {
+        // Data acara
+        const eventTitle = "Pernikahan Yudi & Ratih";
+        const eventLocation = "Jambur Kuta Gugung, Kec. Naman Teran, Kab. Karo, Sumatera Utara";
+        const eventDescription = "Dengan hormat,\nKami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami.\n\n📖 Akad Nikah: Jumat, 24 April 2026, 14:00 WIB\n🍽️ Resepsi: Sabtu, 25 April 2026, 08:00 WIB s/d selesai\n\n📍 Lokasi: Jambur Kuta Gugung, Kec. Naman Teran, Kab. Karo\n\nMerupakan suatu kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir.\n\nDoa restu dari Anda adalah hadiah terindah untuk kami.\n\nTerima kasih.\n\n~ Yudi & Ratih ~";
+        
+        // Tanggal acara (Resepsi: 25 April 2026, 08:00)
+        const startDate = new Date(2026, 3, 25, 8, 0, 0); // Bulan ke-3 = April
+        const endDate = new Date(2026, 3, 25, 17, 0, 0); // Selesai jam 17:00
+        
+        // Format untuk Google Calendar
+        const formatDate = (date) => {
+            return date.toISOString().replace(/-|:|\.\d+/g, '');
+        };
+        
+        const startStr = formatDate(startDate);
+        const endStr = formatDate(endDate);
+        
+        // Encode untuk URL
+        const encodedTitle = encodeURIComponent(eventTitle);
+        const encodedLocation = encodeURIComponent(eventLocation);
+        const encodedDescription = encodeURIComponent(eventDescription);
+        
+        // URL Google Calendar
+        const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodedTitle}&dates=${startStr}/${endStr}&details=${encodedDescription}&location=${encodedLocation}&sf=true&output=xml`;
+        
+        // File ICS untuk Apple Calendar / Outlook
+        const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Wedding Invitation//EN
+BEGIN:VEVENT
+UID:${Date.now()}@wedding-yudi-ratih
+DTSTAMP:${startStr}
+DTSTART:${startStr}
+DTEND:${endStr}
+SUMMARY:${eventTitle}
+DESCRIPTION:${eventDescription.replace(/\n/g, '\\n')}
+LOCATION:${eventLocation}
+END:VEVENT
+END:VCALENDAR`;
+        
+        // Tampilkan pilihan untuk pengguna
+        const userChoice = confirm("Pilih metode tambah ke kalender:\n\n• Klik 'OK' untuk Google Calendar\n• Klik 'Batal' untuk download file .ics (Apple Calendar/Outlook)");
+        
+        if (userChoice) {
+            // Buka Google Calendar
+            window.open(googleCalendarUrl, '_blank');
+            showCalendarNotification("✅ Berhasil! Silakan simpan acara di Google Calendar.");
+        } else {
+            // Download file .ics
+            const blob = new Blob([icsContent], { type: 'text/calendar' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.href = url;
+            link.download = 'Pernikahan_Yudi_Ratih.ics';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            showCalendarNotification("✅ File kalender berhasil diunduh! Buka file tersebut untuk menambahkan ke kalender Anda.");
+        }
+    }
+    
+    function showCalendarNotification(message) {
+        const notifDiv = document.getElementById('calendarNotification');
+        if (notifDiv) {
+            notifDiv.innerHTML = `<div class="calendar-success"><i class="fas fa-check-circle"></i> ${message}</div>`;
+            setTimeout(() => {
+                notifDiv.innerHTML = '';
+            }, 4000);
+        }
+    }
+    
     // ==================== VARIABEL ====================
     let guestOriginalName = "";
     let guestDisplayName = "";
@@ -884,6 +933,12 @@
         startAutoSlide();
         startMusic();
     });
+    
+    // ==================== TOMBOL TAMBAH KE KALENDER ====================
+    const addToCalendarBtn = document.getElementById('addToCalendarBtn');
+    if (addToCalendarBtn) {
+        addToCalendarBtn.addEventListener('click', addToCalendar);
+    }
 
     // ==================== MUSIK ====================
     const bgMusic = document.getElementById('bgMusic');
@@ -998,15 +1053,6 @@
             if (hoursEl) hoursEl.innerText = '00';
             if (minutesEl) minutesEl.innerText = '00';
             if (secondsEl) secondsEl.innerText = '00';
-            const container = document.getElementById('countdownResepsi');
-            if (container && !container.querySelector('.countdown-finished')) {
-                const finishedMsg = document.createElement('div');
-                finishedMsg.className = 'event-name-small countdown-finished';
-                finishedMsg.style.color = '#d4af7a';
-                finishedMsg.style.fontWeight = 'bold';
-                finishedMsg.innerHTML = '🎉 Hari ini adalah hari bahagia kami! 🎉';
-                container.appendChild(finishedMsg);
-            }
             return;
         }
         
