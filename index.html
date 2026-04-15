@@ -9,6 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
+    <!-- Google API Client -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    
     <style>
         * {
             margin: 0;
@@ -26,7 +29,6 @@
             position: relative;
         }
 
-        /* warna tema utama: elegan coklat keemasan */
         :root {
             --primary: #ae8f7a;
             --primary-dark: #8b6e5a;
@@ -41,7 +43,6 @@
             font-weight: normal;
         }
 
-        /* Tombol Musik */
         .music-control {
             position: fixed;
             bottom: 90px;
@@ -75,7 +76,6 @@
             50% { box-shadow: 0 0 0 10px rgba(174, 143, 122, 0); }
         }
 
-        /* SLIDER/CAROUSEL STYLES */
         .gallery-slider {
             position: relative;
             width: 100%;
@@ -106,7 +106,6 @@
             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
 
-        /* Tombol navigasi */
         .slider-btn {
             position: absolute;
             top: 50%;
@@ -131,15 +130,9 @@
             transform: translateY(-50%) scale(1.05);
         }
 
-        .slider-prev {
-            left: 10px;
-        }
+        .slider-prev { left: 10px; }
+        .slider-next { right: 10px; }
 
-        .slider-next {
-            right: 10px;
-        }
-
-        /* Indikator dots */
         .slider-dots {
             display: flex;
             justify-content: center;
@@ -162,10 +155,10 @@
             background: var(--primary);
         }
 
-        /* Sampul Depan */
+        /* SAMPUL DEPAN */
         .cover {
             min-height: 100vh;
-            background: linear-gradient(135deg, rgba(0,0,0,0.2), rgba(0,0,0,0.1)), url('Sampul.jpeg') center/cover no-repeat;
+            background: linear-gradient(135deg, rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('Sampul.jpeg') center/cover no-repeat;
             background-size: cover;
             background-position: center 30%;
             display: flex;
@@ -183,13 +176,43 @@
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(0,0,0,0.4);
+            background: rgba(0,0,0,0.45);
             z-index: 1;
         }
 
         .cover-content {
             position: relative;
             z-index: 2;
+        }
+
+        .to-guest {
+            font-size: 16px;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            font-weight: 300;
+            background: rgba(255,255,255,0.2);
+            display: inline-block;
+            padding: 6px 20px;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+        }
+
+        .guest-name-display {
+            font-size: 28px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #fff, #f5e6d3);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .guest-name-loading {
+            font-size: 20px;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 15px;
         }
 
         .invite-text {
@@ -234,13 +257,11 @@
             transform: scale(1.02);
         }
 
-        /* Main Content (awalnya hidden) */
         .main-content {
             display: none;
             background: #fffef7;
         }
 
-        /* Section style */
         .section {
             padding: 48px 24px;
             text-align: center;
@@ -264,7 +285,6 @@
             margin: 8px auto 0;
         }
 
-        /* Mempelai */
         .couple-wrap {
             display: flex;
             flex-wrap: wrap;
@@ -307,7 +327,6 @@
             margin: 8px 0;
         }
 
-        /* Acara & Lokasi */
         .acara-card {
             background: white;
             border-radius: 28px;
@@ -360,7 +379,6 @@
             font-weight: 500;
         }
 
-        /* Doa & Ucapan */
         .doa-box {
             background: var(--secondary);
             padding: 24px;
@@ -372,7 +390,33 @@
             line-height: 1.6;
         }
 
-        /* Form kehadiran */
+        .google-login-cover {
+            margin-top: 20px;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(8px);
+            border-radius: 40px;
+            padding: 8px 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .google-login-cover:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .google-login-cover i {
+            font-size: 18px;
+        }
+
+        .google-login-cover span {
+            font-size: 13px;
+            font-weight: 500;
+        }
+
         .form-group {
             margin-bottom: 18px;
             text-align: left;
@@ -399,7 +443,6 @@
             cursor: pointer;
         }
 
-        /* Rekening */
         .rekening-list {
             background: #fcf8f3;
             border-radius: 24px;
@@ -436,6 +479,7 @@
 
         @media (max-width: 450px) {
             .couple-name { font-size: 40px; }
+            .guest-name-display { font-size: 22px; }
             .section { padding: 32px 20px; }
             .foto-bulat { width: 130px; height: 130px; }
             .slider-slide img { height: 250px; }
@@ -453,6 +497,19 @@
 <!-- SAMPUL DEPAN -->
 <div class="cover" id="coverPage">
     <div class="cover-content">
+        <div class="to-guest">💌 Kepada Yth.</div>
+        
+        <!-- Nama tamu akan muncul di sini (dinamis sesuai Google user + & Partner) -->
+        <div id="guestNameDisplay" class="guest-name-loading">
+            <i class="fas fa-spinner fa-pulse"></i> Mendeteksi nama Anda...
+        </div>
+        
+        <!-- Tombol login Google (muncul jika belum login) -->
+        <div id="googleLoginBtnCover" class="google-login-cover" style="display: none;">
+            <i class="fab fa-google"></i>
+            <span>Login dengan Google untuk melihat nama Anda</span>
+        </div>
+        
         <div class="invite-text">The Wedding of</div>
         <h1 class="couple-name">Muhammad <br> & <br> Ratih</h1>
         <div class="date-cover">Sabtu, 25 April 2026</div>
@@ -460,13 +517,15 @@
     </div>
 </div>
 
-<!-- KONTEN UTAMA (sembunyi awal) -->
+<!-- KONTEN UTAMA -->
 <div class="main-content" id="mainContent">
     
-    <!-- Salam & Doa Singkat -->
     <div class="section">
         <h2 class="section-title">Assalamu'alaikum</h2>
-        <p style="margin-top: 16px; line-height: 1.6;">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya di antaramu rasa kasih dan sayang." <br> (QS. Ar-Rum: 21)</p>
+        <p style="margin-top: 16px; line-height: 1.6;" id="salamPersonal">
+            <!-- akan diisi dengan nama tamu secara personal -->
+        </p>
+        <p style="margin-top: 10px;">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya di antaramu rasa kasih dan sayang." <br> (QS. Ar-Rum: 21)</p>
     </div>
 
     <!-- Mempelai -->
@@ -506,12 +565,11 @@
             <div class="detail-info"><i class="fas fa-map-marker-alt"></i> Lokasi yang sama: Kuta Gugung, Karo</div>
         </div>
 
-        <!-- Google Maps Embed sesuai request -->
         <iframe class="map-iframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3710.3903038948856!2d98.40116206794248!3d3.2009209365784876!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3030fc99169624d5%3A0x93c846359262035f!2s6C23%2B3FG%2C%20Kuta%20Gugung%2C%20Kec.%20Naman%20Teran%2C%20Kabupaten%20Karo%2C%20Sumatera%20Utara!5e0!3m2!1sid!2sid!4v1776235297265!5m2!1sid!2sid" allowfullscreen="" loading="lazy"></iframe>
         <a href="https://maps.app.goo.gl/sZjh4Su8CHioaBeE9" target="_blank" class="btn-map">📍 Buka di Google Maps</a>
     </div>
 
-    <!-- DOA & PENGANTAR -->
+    <!-- DOA -->
     <div class="section">
         <h2 class="section-title">Doa Restu</h2>
         <div class="doa-box">
@@ -520,22 +578,16 @@
         <p style="font-size: 14px;">Merupakan suatu kehormatan bagi kami, apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.</p>
     </div>
 
-    <!-- GALERI SLIDER/CAROUSEL ANIMASI -->
+    <!-- GALERI -->
     <div class="section" style="background: #fff9f2;">
         <h2 class="section-title">Gallery</h2>
         
         <div class="gallery-slider">
             <button class="slider-btn slider-prev" id="prevSlide">❮</button>
             <div class="slider-container" id="sliderContainer">
-                <div class="slider-slide">
-                    <img src="Sampul.jpeg" alt="Gallery 1">
-                </div>
-                <div class="slider-slide">
-                    <img src="3.jpeg" alt="Gallery 2">
-                </div>
-                <div class="slider-slide">
-                    <img src="4.jpeg" alt="Gallery 3">
-                </div>
+                <div class="slider-slide"><img src="Sampul.jpeg" alt="Gallery 1"></div>
+                <div class="slider-slide"><img src="3.jpeg" alt="Gallery 2"></div>
+                <div class="slider-slide"><img src="4.jpeg" alt="Gallery 3"></div>
             </div>
             <button class="slider-btn slider-next" id="nextSlide">❯</button>
         </div>
@@ -544,10 +596,11 @@
         <p style="margin-top: 12px; font-size: 13px;">Momen terindah perjalanan kami ✨</p>
     </div>
 
-    <!-- FORM KONFIRMASI KEHADIRAN + UCAPAN -->
+    <!-- FORM KONFIRMASI -->
     <div class="section">
         <h2 class="section-title">Konfirmasi Kehadiran</h2>
         <p style="margin-bottom: 20px;">Kami sangat senang jika Anda berkenan hadir. Silakan isi form berikut:</p>
+        
         <form id="formKehadiran">
             <div class="form-group">
                 <input type="text" id="namaTamu" placeholder="Nama Lengkap" required>
@@ -569,19 +622,13 @@
         </form>
         <div id="notifKehadiran" style="margin-top: 16px; font-size: 13px; color: green;"></div>
         
-        <!-- Daftar ucapan sederhana (tampilan contoh) -->
         <div style="margin-top: 32px;">
             <h4 style="color: var(--primary); margin-bottom: 12px;">💬 Ucapan & Doa</h4>
-            <div id="listUcapan" style="text-align: left; max-height: 250px; overflow-y: auto;">
-                <div class="ucapan-item" style="background: #f7efe8; border-radius: 16px; padding: 12px; margin-bottom: 8px;">
-                    <strong>Team Indoinvite</strong><br>
-                    <span>Semoga menjadi keluarga sakinah mawaddah warahmah. Aamiin!</span>
-                </div>
-            </div>
+            <div id="listUcapan" style="text-align: left; max-height: 250px; overflow-y: auto;"></div>
         </div>
     </div>
 
-    <!-- TITIP HADIAH / REKENING -->
+    <!-- REKENING -->
     <div class="section">
         <h2 class="section-title">Titip Hadiah</h2>
         <p style="font-size: 14px;">Doa restu Anda adalah kado terindah. Namun jika ingin memberi secara cashless, berikut rekening:</p>
@@ -594,7 +641,6 @@
         <p style="font-size: 12px; margin-top: 16px;">*Atas nama: Muhammad Wahyudi Tarigan</p>
     </div>
 
-    <!-- Penutup & Footer -->
     <div class="section" style="border-bottom: none;">
         <h2 class="section-title">Terima Kasih</h2>
         <p>Kami sekeluarga mengucapkan terima kasih atas doa dan kehadiran Bapak/Ibu/Saudara/i.<br>Wassalamu'alaikum Wr. Wb.</p>
@@ -606,34 +652,165 @@
     </footer>
 </div>
 
-<!-- Audio Musik -->
 <audio id="bgMusic" loop preload="auto">
     <source src="lagu.mp3" type="audio/mpeg">
-    Browser Anda tidak mendukung pemutar audio.
 </audio>
 
 <script>
+    // ==================== DETEKSI NAMA DARI GOOGLE + TAMBAH "& Partner" ====================
+    let originalGuestName = null;  // Nama asli dari Google
+    let detectedGuestNameWithPartner = null;  // Nama + & Partner
+    let isGoogleLoggedIn = false;
+    
+    // DOM Elements
+    const guestNameDisplay = document.getElementById('guestNameDisplay');
+    const googleLoginBtnCover = document.getElementById('googleLoginBtnCover');
+    const salamPersonal = document.getElementById('salamPersonal');
+    const namaInputForm = document.getElementById('namaTamu');
+    
+    // Fungsi untuk menambahkan "& Partner" ke nama
+    function addPartnerToName(name) {
+        if (!name) return name;
+        // Bersihkan dari "& Partner" jika sudah ada sebelumnya
+        let cleanName = name.replace(/\s*&?\s*Partner/i, '').trim();
+        return `${cleanName} & Partner`;
+    }
+    
+    // Fungsi untuk memperbarui semua tampilan nama
+    function updateAllNameDisplays(nameWithPartner, originalName) {
+        // Update di cover
+        if (guestNameDisplay) {
+            guestNameDisplay.className = 'guest-name-display';
+            guestNameDisplay.innerHTML = nameWithPartner;
+        }
+        
+        // Update salam personal di dalam undangan
+        if (salamPersonal) {
+            salamPersonal.innerHTML = `Kepada Yth. <strong>${nameWithPartner}</strong>, kami sekeluarga mengucapkan selamat datang di hari bahagia kami.`;
+        }
+        
+        // Update form nama (simpan nama asli tanpa partner untuk database)
+        if (namaInputForm) {
+            namaInputForm.value = originalName || nameWithPartner;
+            namaInputForm.readOnly = true;
+            namaInputForm.style.background = "#f0ebe4";
+        }
+    }
+    
+    // Fungsi untuk menampilkan tombol login Google
+    function showGoogleLoginButton() {
+        if (googleLoginBtnCover) {
+            googleLoginBtnCover.style.display = 'inline-flex';
+        }
+        if (guestNameDisplay) {
+            guestNameDisplay.className = 'guest-name-loading';
+            guestNameDisplay.innerHTML = '<i class="fab fa-google"></i> Silakan login dengan Google';
+        }
+    }
+    
+    // Handle response dari Google
+    function handleGoogleCredentialResponse(response) {
+        const payload = parseJwt(response.credential);
+        if (payload && payload.name) {
+            originalGuestName = payload.name;
+            // Tambahkan "& Partner" ke nama
+            detectedGuestNameWithPartner = addPartnerToName(originalGuestName);
+            isGoogleLoggedIn = true;
+            
+            // Simpan ke localStorage (simpan nama asli dan yang sudah dengan partner)
+            localStorage.setItem('wedding_guest_name_original', originalGuestName);
+            localStorage.setItem('wedding_guest_name_with_partner', detectedGuestNameWithPartner);
+            localStorage.setItem('wedding_guest_email', payload.email);
+            
+            // Update semua tampilan
+            updateAllNameDisplays(detectedGuestNameWithPartner, originalGuestName);
+            
+            // Sembunyikan tombol login
+            if (googleLoginBtnCover) {
+                googleLoginBtnCover.style.display = 'none';
+            }
+        }
+    }
+    
+    function parseJwt(token) {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        return JSON.parse(jsonPayload);
+    }
+    
+    // Inisialisasi Google API
+    function initGoogleAPI() {
+        if (typeof google !== 'undefined' && google.accounts) {
+            google.accounts.id.initialize({
+                client_id: '1080624948576-5o3qf9lvb0prcj4qiv1i4d0n5m5jv79t.apps.googleusercontent.com',
+                callback: handleGoogleCredentialResponse,
+                auto_select: true,
+                cancel_on_tap_outside: false
+            });
+            
+            // Cek apakah sudah ada session Google
+            google.accounts.id.prompt((notification) => {
+                if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+                    // Jika tidak ditampilkan, cek localStorage
+                    const storedNameWithPartner = localStorage.getItem('wedding_guest_name_with_partner');
+                    const storedOriginalName = localStorage.getItem('wedding_guest_name_original');
+                    if (storedNameWithPartner && storedOriginalName) {
+                        originalGuestName = storedOriginalName;
+                        detectedGuestNameWithPartner = storedNameWithPartner;
+                        updateAllNameDisplays(detectedGuestNameWithPartner, originalGuestName);
+                    } else {
+                        showGoogleLoginButton();
+                    }
+                }
+            });
+            
+            // Tombol login manual
+            if (googleLoginBtnCover) {
+                googleLoginBtnCover.onclick = () => {
+                    google.accounts.id.prompt();
+                };
+            }
+        } else {
+            setTimeout(initGoogleAPI, 500);
+        }
+    }
+    
+    // Cek localStorage saat awal
+    function checkStoredGuest() {
+        const storedNameWithPartner = localStorage.getItem('wedding_guest_name_with_partner');
+        const storedOriginalName = localStorage.getItem('wedding_guest_name_original');
+        if (storedNameWithPartner && storedOriginalName) {
+            originalGuestName = storedOriginalName;
+            detectedGuestNameWithPartner = storedNameWithPartner;
+            updateAllNameDisplays(detectedGuestNameWithPartner, originalGuestName);
+            if (googleLoginBtnCover) {
+                googleLoginBtnCover.style.display = 'none';
+            }
+            return true;
+        }
+        return false;
+    }
+    
     // ==================== MUSIK BACKGROUND ====================
     const bgMusic = document.getElementById('bgMusic');
     const musicToggle = document.getElementById('musicToggle');
     const musicIcon = document.getElementById('musicIcon');
     let isMusicPlaying = false;
-
-    // Fungsi untuk memutar musik (dipanggil saat klik Buka Undangan)
+    
     function startMusic() {
         bgMusic.play().then(() => {
             isMusicPlaying = true;
             musicToggle.classList.add('playing');
             musicIcon.className = 'fas fa-music';
-        }).catch((error) => {
-            console.log('Play failed:', error);
-            // Fallback: coba lagi setelah user interaksi
+        }).catch(() => {
             isMusicPlaying = false;
             musicIcon.className = 'fas fa-volume-mute';
         });
     }
-
-    // Toggle play/pause musik (saat tombol musik diklik)
+    
     function toggleMusic() {
         if (isMusicPlaying) {
             bgMusic.pause();
@@ -645,29 +822,35 @@
                 isMusicPlaying = true;
                 musicToggle.classList.add('playing');
                 musicIcon.className = 'fas fa-music';
-            }).catch((error) => {
-                console.log('Play failed:', error);
-            });
+            }).catch(() => {});
         }
     }
-
     musicToggle.addEventListener('click', toggleMusic);
-
-    // ==================== LOGIKA INTERAKTIF ====================
-    const cover = document.getElementById('coverPage');
-    const main = document.getElementById('mainContent');
+    
+    // ==================== BUKA UNDANGAN ====================
+    const coverPage = document.getElementById('coverPage');
+    const mainContent = document.getElementById('mainContent');
     const btnOpen = document.getElementById('btnOpenInvitation');
-
+    
     btnOpen.addEventListener('click', () => {
-        cover.style.display = 'none';
-        main.style.display = 'block';
+        // Cek apakah sudah ada nama tamu
+        if (!originalGuestName && !localStorage.getItem('wedding_guest_name_original')) {
+            // Jika belum ada nama, coba prompt Google lagi
+            if (typeof google !== 'undefined' && google.accounts) {
+                google.accounts.id.prompt();
+            }
+            alert('Silakan login dengan Google terlebih dahulu agar undangan dipersonalisasi untuk Anda & Partner.');
+            return;
+        }
+        
+        coverPage.style.display = 'none';
+        mainContent.style.display = 'block';
         window.scrollTo({ top: 0, behavior: 'smooth' });
         startAutoSlide();
-        // 🔥 LANGSUNG PUTAR MUSIK SAAT KLIK BUKA UNDANGAN 🔥
         startMusic();
     });
-
-    // ==================== GALERI SLIDER/CAROUSEL ====================
+    
+    // ==================== GALERI SLIDER ====================
     const sliderContainer = document.getElementById('sliderContainer');
     const slides = document.querySelectorAll('.slider-slide');
     const prevBtn = document.getElementById('prevSlide');
@@ -677,117 +860,101 @@
     let currentIndex = 0;
     const totalSlides = slides.length;
     let autoSlideInterval;
-    const autoSlideDelay = 2000; // 2 detik per slide
-
+    const autoSlideDelay = 2000;
+    
     function updateSlider() {
         sliderContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
-        
-        document.querySelectorAll('.dot').forEach((dot, index) => {
-            if (index === currentIndex) {
-                dot.classList.add('active');
-            } else {
-                dot.classList.remove('active');
-            }
+        document.querySelectorAll('.dot').forEach((dot, idx) => {
+            dot.classList.toggle('active', idx === currentIndex);
         });
     }
-
+    
     function nextSlide() {
         currentIndex = (currentIndex + 1) % totalSlides;
         updateSlider();
         resetAutoSlide();
     }
-
+    
     function prevSlide() {
         currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
         updateSlider();
         resetAutoSlide();
     }
-
-    function goToSlide(index) {
-        currentIndex = index;
-        updateSlider();
-        resetAutoSlide();
-    }
-
+    
     function createDots() {
         dotsContainer.innerHTML = '';
         for (let i = 0; i < totalSlides; i++) {
             const dot = document.createElement('div');
             dot.classList.add('dot');
             if (i === currentIndex) dot.classList.add('active');
-            dot.addEventListener('click', () => goToSlide(i));
+            dot.addEventListener('click', () => {
+                currentIndex = i;
+                updateSlider();
+                resetAutoSlide();
+            });
             dotsContainer.appendChild(dot);
         }
     }
-
+    
     function startAutoSlide() {
         if (autoSlideInterval) clearInterval(autoSlideInterval);
-        autoSlideInterval = setInterval(() => {
-            nextSlide();
-        }, autoSlideDelay);
+        autoSlideInterval = setInterval(nextSlide, autoSlideDelay);
     }
-
+    
     function resetAutoSlide() {
         if (autoSlideInterval) {
             clearInterval(autoSlideInterval);
             startAutoSlide();
         }
     }
-
+    
     function stopAutoSlide() {
         if (autoSlideInterval) {
             clearInterval(autoSlideInterval);
             autoSlideInterval = null;
         }
     }
-
+    
     nextBtn.addEventListener('click', nextSlide);
     prevBtn.addEventListener('click', prevSlide);
-    
     const gallerySlider = document.querySelector('.gallery-slider');
     gallerySlider.addEventListener('mouseenter', stopAutoSlide);
     gallerySlider.addEventListener('mouseleave', startAutoSlide);
     
     let touchStartX = 0;
-    
     gallerySlider.addEventListener('touchstart', (e) => {
         touchStartX = e.changedTouches[0].screenX;
         stopAutoSlide();
     });
-    
     gallerySlider.addEventListener('touchend', (e) => {
         const touchEndX = e.changedTouches[0].screenX;
-        if (touchEndX < touchStartX - 50) {
-            nextSlide();
-        } else if (touchEndX > touchStartX + 50) {
-            prevSlide();
-        }
+        if (touchEndX < touchStartX - 50) nextSlide();
+        else if (touchEndX > touchStartX + 50) prevSlide();
         startAutoSlide();
     });
-
+    
     createDots();
     updateSlider();
-
+    
     // ==================== KONFIRMASI KEHADIRAN ====================
     const form = document.getElementById('formKehadiran');
-    const namaInput = document.getElementById('namaTamu');
     const statusSelect = document.getElementById('kehadiranStatus');
     const jumlahGroup = document.getElementById('jumlahOrangGroup');
     const jumlahInput = document.getElementById('jumlahOrang');
     const ucapanText = document.getElementById('ucapanTamu');
     const notifDiv = document.getElementById('notifKehadiran');
     const listUcapanDiv = document.getElementById('listUcapan');
-
+    
     statusSelect.addEventListener('change', function() {
         jumlahGroup.style.display = this.value === 'Hadir' ? 'block' : 'none';
     });
-
+    
     function loadUcapanFromStorage() {
         const stored = localStorage.getItem('weddingUcapanMuhammadRatih');
         if (stored) {
             const ucapanList = JSON.parse(stored);
             listUcapanDiv.innerHTML = '';
-            ucapanList.forEach(item => {
+            ucapanList.slice(0, 15).forEach(item => {
                 const div = document.createElement('div');
                 div.className = 'ucapan-item';
                 div.style.background = '#f7efe8';
@@ -799,7 +966,7 @@
             });
         }
     }
-
+    
     function escapeHtml(str) {
         if (!str) return '';
         return str.replace(/[&<>]/g, function(m) {
@@ -809,10 +976,10 @@
             return m;
         });
     }
-
+    
     form.addEventListener('submit', function(e) {
         e.preventDefault();
-        const nama = namaInput.value.trim();
+        let nama = namaInputForm.value.trim();
         if (!nama) {
             notifDiv.innerText = 'Nama tidak boleh kosong!';
             notifDiv.style.color = 'red';
@@ -829,7 +996,7 @@
             jumlah = jumlahInput.value ? `${jumlahInput.value} orang` : '1 orang';
         }
         const ucapan = ucapanText.value.trim() || "Semoga bahagia selalu!";
-
+        
         let existing = localStorage.getItem('weddingUcapanMuhammadRatih');
         let ucapanArray = existing ? JSON.parse(existing) : [];
         ucapanArray.unshift({
@@ -838,12 +1005,11 @@
             status: status,
             waktu: new Date().toISOString()
         });
-        if (ucapanArray.length > 20) ucapanArray.pop();
+        if (ucapanArray.length > 30) ucapanArray.pop();
         localStorage.setItem('weddingUcapanMuhammadRatih', JSON.stringify(ucapanArray));
         
         loadUcapanFromStorage();
         
-        namaInput.value = '';
         statusSelect.value = '';
         jumlahGroup.style.display = 'none';
         jumlahInput.value = '';
@@ -854,8 +1020,7 @@
             notifDiv.innerText = '';
         }, 3000);
     });
-
-    // Copy rekening
+    
     document.querySelectorAll('.copy-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             const rekText = this.getAttribute('data-rek');
@@ -868,8 +1033,7 @@
             });
         });
     });
-
-    // Load ucapan awal
+    
     const cekData = localStorage.getItem('weddingUcapanMuhammadRatih');
     if (!cekData) {
         const defaultUcapan = [
@@ -879,7 +1043,15 @@
         localStorage.setItem('weddingUcapanMuhammadRatih', JSON.stringify(defaultUcapan));
     }
     loadUcapanFromStorage();
+    
+    // ==================== START ====================
+    if (!checkStoredGuest()) {
+        initGoogleAPI();
+    } else {
+        if (googleLoginBtnCover) {
+            googleLoginBtnCover.style.display = 'none';
+        }
+    }
 </script>
-
 </body>
 </html>
