@@ -294,8 +294,56 @@
 
         .sparator {
             font-size: 28px;
-            color: var(--gold);
-            margin: 8px 0;
+            margin: 16px 0;
+            letter-spacing: 8px;
+        }
+
+        /* ===== ANIMASI LOVE BERDENYUT ===== */
+        .sparator i {
+            animation: lovePulse 1.2s ease-in-out infinite;
+            display: inline-block;
+            margin: 0 6px;
+            color: #d4af7a;
+        }
+
+        .sparator i:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .sparator i:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .sparator i:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes lovePulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.7;
+                text-shadow: 0 0 0px rgba(212, 175, 122, 0);
+            }
+            50% {
+                transform: scale(1.4);
+                opacity: 1;
+                text-shadow: 0 0 10px rgba(212, 175, 122, 0.8);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.7;
+                text-shadow: 0 0 0px rgba(212, 175, 122, 0);
+            }
+        }
+
+        /* Efek hover tambahan */
+        .sparator:hover i {
+            animation: loveBounce 0.6s ease-in-out;
+        }
+
+        @keyframes loveBounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.5) rotate(10deg); }
         }
 
         .acara-card {
@@ -328,6 +376,65 @@
             width: 24px;
             color: var(--primary);
             font-size: 18px;
+        }
+
+        /* Countdown Timer Styles */
+        .countdown-container {
+            background: linear-gradient(135deg, #fff5ea, #ffe8da);
+            border-radius: 30px;
+            padding: 20px 16px;
+            margin: 20px 0 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(174, 143, 122, 0.15);
+            border: 1px solid rgba(212, 175, 122, 0.3);
+        }
+        .countdown-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+        .countdown-title i {
+            margin-right: 8px;
+            color: var(--gold);
+        }
+        .countdown-timer {
+            display: flex;
+            justify-content: space-evenly;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .countdown-item {
+            background: white;
+            border-radius: 20px;
+            padding: 8px 0;
+            min-width: 70px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        .countdown-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+            font-family: 'Work Sans', sans-serif;
+        }
+        .countdown-label {
+            font-size: 12px;
+            color: #8b7a6b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+        .event-name-small {
+            font-size: 14px;
+            color: #ae8f7a;
+            margin-top: 12px;
+            font-weight: 500;
+        }
+        @media (max-width: 450px) {
+            .countdown-item { min-width: 60px; }
+            .countdown-number { font-size: 26px; }
         }
 
         .map-iframe {
@@ -588,7 +695,14 @@
                 <div class="orang-tua">Putri dari Bapak Tumino Sinaga & Ibu Rohana Sagala</div>
             </div>
         </div>
-        <div class="sparator"></div>
+        
+        <!-- ANIMASI LOVE YANG INDAH -->
+        <div class="sparator">
+            <i class="fas fa-heart"></i>
+            <i class="fas fa-heart"></i>
+            <i class="fas fa-heart"></i>
+        </div>
+        
         <p style="font-size: 14px; color: #5e5e5e;">Mengundang ke hadirat Allah SWT, kami mohon doa restu</p>
     </div>
 
@@ -609,7 +723,21 @@
             <div class="detail-info"><i class="fas fa-map-marker-alt"></i> Jambur Kuta Gugung, Kec. Naman Teran, Kab. Karo</div>
         </div>
 
-        <iframe class="map-iframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3710.3903038948856!2d98.40116206794248!3d3.2009209365784876!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3030fc99169624d5%3A0x93c846359262035f!2s6C23%2B3FG%2C%20Kuta%20Gugung%2C%20Kec.%20Naman%20Teran%2C%20Kabupaten%20Karo%2C%20Sumatera%20Utara!5e0!3m2!1sid!2sid!4v1776235297265!5m2!1sid!2sid" allowfullscreen="" loading="lazy"></iframe>
+        <!-- COUNTDOWN TIMER UNTUK RESEPSI -->
+        <div class="countdown-container" id="countdownResepsi">
+            <div class="countdown-title">
+                <i class="fas fa-hourglass-half"></i> Menuju Hari Bahagia
+            </div>
+            <div class="countdown-timer" id="timerDisplay">
+                <div class="countdown-item"><div class="countdown-number" id="days">00</div><div class="countdown-label">Hari</div></div>
+                <div class="countdown-item"><div class="countdown-number" id="hours">00</div><div class="countdown-label">Jam</div></div>
+                <div class="countdown-item"><div class="countdown-number" id="minutes">00</div><div class="countdown-label">Menit</div></div>
+                <div class="countdown-item"><div class="countdown-number" id="seconds">00</div><div class="countdown-label">Detik</div></div>
+            </div>
+            <div class="event-name-small">⏳ Resepsi Pernikahan • Sabtu, 25 April 2026</div>
+        </div>
+
+        <iframe class="map-iframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3710.3903038948856!2d98.40116206794248!3d3.2009209365784876!2m3!1f0!2f0!3f0!3m1i1024!2i768!4f13.1!3m3!1m2!1s0x3030fc99169624d5%3A0x93c846359262035f!2s6C23%2B3FG%2C%20Kuta%20Gugung%2C%20Kec.%20Naman%20Teran%2C%20Kabupaten%20Karo%2C%20Sumatera%20Utara!5e0!3m2!1sid!2sid!4v1776235297265!5m2!1sid!2sid" allowfullscreen="" loading="lazy"></iframe>
         <a href="https://maps.app.goo.gl/sZjh4Su8CHioaBeE9" target="_blank" class="btn-map">📍 Buka di Google Maps</a>
     </div>
 
@@ -690,7 +818,6 @@
     let guestOriginalName = "";
     let guestDisplayName = "";
 
-    // Fungsi menambahkan "& Partner"
     function addPartner(name) {
         if (!name) return "";
         let clean = name.trim();
@@ -722,19 +849,15 @@
         guestOriginalName = nama;
         guestDisplayName = addPartner(nama);
         
-        // Simpan ke localStorage
         localStorage.setItem('wedding_guest_name', guestOriginalName);
         localStorage.setItem('wedding_guest_display', guestDisplayName);
         
-        // Update tampilan di cover
         guestNameDisplay.innerHTML = guestDisplayName;
         
-        // Sembunyikan halaman input, tampilkan cover
         inputPage.style.display = 'none';
         coverPage.style.display = 'flex';
     });
 
-    // Enter key
     namaInput.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
             btnMulai.click();
@@ -745,17 +868,14 @@
     const btnBukaUndangan = document.getElementById('btnBukaUndangan');
     
     btnBukaUndangan.addEventListener('click', function() {
-        // Update salam personal di dalam undangan
         salamPersonal.innerHTML = `Kepada Yth. <strong>${guestDisplayName}</strong>, kami sekeluarga mengucapkan selamat datang di hari bahagia kami.`;
         
-        // Update form nama
         if (namaTamuForm) {
             namaTamuForm.value = guestOriginalName;
             namaTamuForm.readOnly = true;
             namaTamuForm.style.background = "#f0ebe4";
         }
         
-        // Pindah ke main content
         coverPage.style.display = 'none';
         mainContent.style.display = 'block';
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -857,6 +977,52 @@
     createDots();
     if (sliderContainer) updateSlider();
 
+    // ==================== COUNTDOWN TIMER ====================
+    function getTargetDate() {
+        return new Date(2026, 3, 25, 8, 0, 0);
+    }
+    
+    function updateCountdown() {
+        const now = new Date();
+        const target = getTargetDate();
+        const diff = target - now;
+        
+        const daysEl = document.getElementById('days');
+        const hoursEl = document.getElementById('hours');
+        const minutesEl = document.getElementById('minutes');
+        const secondsEl = document.getElementById('seconds');
+        
+        if (diff <= 0) {
+            if (daysEl) daysEl.innerText = '00';
+            if (hoursEl) hoursEl.innerText = '00';
+            if (minutesEl) minutesEl.innerText = '00';
+            if (secondsEl) secondsEl.innerText = '00';
+            const container = document.getElementById('countdownResepsi');
+            if (container && !container.querySelector('.countdown-finished')) {
+                const finishedMsg = document.createElement('div');
+                finishedMsg.className = 'event-name-small countdown-finished';
+                finishedMsg.style.color = '#d4af7a';
+                finishedMsg.style.fontWeight = 'bold';
+                finishedMsg.innerHTML = '🎉 Hari ini adalah hari bahagia kami! 🎉';
+                container.appendChild(finishedMsg);
+            }
+            return;
+        }
+        
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (86400000)) / (3600000));
+        const minutes = Math.floor((diff % 3600000) / 60000);
+        const seconds = Math.floor((diff % 60000) / 1000);
+        
+        if (daysEl) daysEl.innerText = days < 10 ? '0' + days : days;
+        if (hoursEl) hoursEl.innerText = hours < 10 ? '0' + hours : hours;
+        if (minutesEl) minutesEl.innerText = minutes < 10 ? '0' + minutes : minutes;
+        if (secondsEl) secondsEl.innerText = seconds < 10 ? '0' + seconds : seconds;
+    }
+    
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
     // ==================== KONFIRMASI KEHADIRAN ====================
     const form = document.getElementById('formKehadiran');
     const statusSelect = document.getElementById('kehadiranStatus');
@@ -950,13 +1116,11 @@
     }
     loadUcapan();
 
-    // Cek apakah sudah pernah input nama sebelumnya
     const savedName = localStorage.getItem('wedding_guest_name');
     const savedDisplay = localStorage.getItem('wedding_guest_display');
     if (savedName && savedDisplay) {
         guestOriginalName = savedName;
         guestDisplayName = savedDisplay;
-        // Langsung ke cover
         inputPage.style.display = 'none';
         coverPage.style.display = 'flex';
         guestNameDisplay.innerHTML = guestDisplayName;
