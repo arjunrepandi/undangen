@@ -3,12 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>Undangan Pernikahan | Yudi & Ratih - Scroll Up & Down Animation</title>
+    <title>Undangan Pernikahan | Yudi & Ratih - Premium Edition</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Work+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     
     <style>
+        /* ============================================ */
+        /* ROOT VARIABLES & RESET - BARIS 1-50        */
+        /* ============================================ */
         * {
             margin: 0;
             padding: 0;
@@ -20,17 +24,29 @@
             --primary-light: #c9b4a3;
             --primary-dark: #8b6e5a;
             --secondary: #f5e7d9;
+            --secondary-dark: #e8d5c4;
             --gold: #d4af7a;
             --gold-light: #e8cfa1;
             --gold-dark: #b8945c;
+            --success: #4CAF50;
+            --info: #2196F3;
+            --warning: #ff9800;
+            --danger: #ff6b6b;
             --dark: #2c2c2c;
             --light: #fffef7;
             --gray: #8b7a6b;
+            --gray-light: #f0ebe4;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
             --shadow-md: 0 8px 24px rgba(0,0,0,0.1);
             --shadow-lg: 0 16px 32px rgba(0,0,0,0.15);
+            --shadow-xl: 0 24px 48px rgba(0,0,0,0.2);
+            --transition: all 0.3s ease;
+            --transition-slow: all 0.5s ease;
+            --border-radius-sm: 12px;
+            --border-radius-md: 20px;
             --border-radius-lg: 28px;
-            --transition-fast: 0.3s ease;
-            --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            --border-radius-xl: 40px;
+            --border-radius-full: 50%;
         }
 
         body {
@@ -39,11 +55,36 @@
             color: var(--dark);
             max-width: 500px;
             margin: 0 auto;
-            box-shadow: 0 24px 48px rgba(0,0,0,0.2);
+            box-shadow: var(--shadow-xl);
             min-height: 100vh;
+            position: relative;
             overflow-x: hidden;
         }
 
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        /* Typography */
+        h1, h2, h3, .script-font {
+            font-family: 'Great Vibes', cursive;
+            font-weight: normal;
+        }
+
+        /* ============================================ */
+        /* SCROLL ANIMATIONS - BARIS 51-120           */
+        /* ============================================ */
+        
         /* Scroll Progress Bar */
         .scroll-progress {
             position: fixed;
@@ -55,7 +96,7 @@
             background: linear-gradient(90deg, var(--gold), var(--primary), var(--gold-dark));
             transform-origin: 0%;
             transform: scaleX(0);
-            z-index: 1000;
+            z-index: 1001;
             transition: transform 0.05s linear;
         }
 
@@ -69,17 +110,16 @@
             padding: 6px 12px;
             border-radius: 30px;
             font-size: 11px;
-            z-index: 1000;
+            z-index: 1001;
             backdrop-filter: blur(4px);
             pointer-events: none;
             opacity: 0.7;
-            transition: var(--transition-fast);
+            transition: var(--transition);
+            font-weight: 500;
         }
 
-        /* ========== SCROLL REVEAL ANIMATIONS (BOTH DIRECTIONS) ========== */
-        
-        /* Base reveal class - akan direset saat keluar viewport */
-        .reveal {
+        /* Base reveal class untuk semua elemen yang akan dianimasi */
+        .scroll-reveal {
             transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
                         transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
             will-change: transform, opacity;
@@ -94,7 +134,6 @@
             opacity: 1;
             transform: translateY(0);
         }
-        /* Saat keluar viewport dari atas (scroll up) - animasi reverse */
         .reveal-fade-up.reveal-exit-up {
             opacity: 0;
             transform: translateY(-30px);
@@ -184,35 +223,6 @@
             filter: blur(12px);
         }
 
-        /* Flip X */
-        .reveal-flip {
-            opacity: 0;
-            transform: rotateY(90deg);
-        }
-        .reveal-flip.revealed {
-            opacity: 1;
-            transform: rotateY(0);
-        }
-        .reveal-flip.reveal-exit-flip {
-            opacity: 0;
-            transform: rotateY(-90deg);
-        }
-
-        /* Bounce effect khusus untuk elemen tertentu */
-        .reveal-bounce {
-            opacity: 0;
-            transform: scale(0.8);
-        }
-        .reveal-bounce.revealed {
-            animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
-        }
-        @keyframes bounceIn {
-            0% { opacity: 0; transform: scale(0.3); }
-            50% { opacity: 1; transform: scale(1.05); }
-            70% { transform: scale(0.95); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-
         /* Stagger container untuk multiple items */
         .stagger-reveal .stagger-item {
             opacity: 0;
@@ -235,7 +245,7 @@
         /* Back to Top Button */
         .back-to-top {
             position: fixed;
-            bottom: 90px;
+            bottom: 160px;
             right: 20px;
             width: 45px;
             height: 45px;
@@ -252,6 +262,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 20px;
         }
         .back-to-top.show {
             opacity: 1;
@@ -262,7 +273,68 @@
             transform: translateY(-3px);
         }
 
-        /* Loading Screen */
+        /* ============================================ */
+        /* BACKGROUND ANIMATIONS - BARIS 121-170        */
+        /* ============================================ */
+        .bg-floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .floating-heart {
+            position: absolute;
+            color: var(--gold);
+            opacity: 0.3;
+            animation: floatHeart linear infinite;
+            font-size: 20px;
+        }
+
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-20vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Particle Effect */
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 999;
+            font-size: 12px;
+            animation: particleAnim 1s ease-out forwards;
+        }
+
+        @keyframes particleAnim {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.5) translateY(-50px);
+                opacity: 0;
+            }
+        }
+
+        /* ============================================ */
+        /* LOADING SCREEN - BARIS 171-220              */
+        /* ============================================ */
         .loading-screen {
             position: fixed;
             top: 0;
@@ -270,54 +342,210 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            z-index: 2000;
+            z-index: 1000;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             transition: opacity 0.8s ease;
         }
+
         .loading-screen.hide {
             opacity: 0;
             pointer-events: none;
         }
+
         .loader {
-            width: 60px;
-            height: 60px;
-            border: 3px solid rgba(255,255,255,0.3);
-            border-top-color: var(--gold);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+            width: 80px;
+            height: 80px;
+            position: relative;
+            animation: rotate 2s linear infinite;
         }
 
-        /* Existing styles */
-        .section {
-            padding: 48px 24px;
-            text-align: center;
-            position: relative;
-        }
-        .section:nth-child(even) {
-            background: #fefaf5;
-        }
-        .section-title {
-            font-family: 'Great Vibes', cursive;
-            font-size: 32px;
-            color: var(--primary);
-            margin-bottom: 24px;
-        }
-        .foto-bulat {
-            width: 140px;
-            height: 140px;
+        .loader-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 4px solid transparent;
+            border-top-color: var(--gold);
             border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid var(--gold);
+            animation: spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
         }
+
+        .loader-ring:nth-child(1) { animation-delay: -0.45s; }
+        .loader-ring:nth-child(2) { animation-delay: -0.3s; }
+        .loader-ring:nth-child(3) { animation-delay: -0.15s; }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            margin-top: 20px;
+            color: white;
+            font-size: 14px;
+            letter-spacing: 2px;
+        }
+
+        /* ============================================ */
+        /* HALAMAN INPUT NAMA - BARIS 221-270          */
+        /* ============================================ */
+        .input-page {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fef9f4 0%, #f5e7d9 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .input-container {
+            background: white;
+            border-radius: var(--border-radius-xl);
+            padding: 40px 28px;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+            max-width: 400px;
+            animation: fadeInUp 0.8s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .input-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .input-container .wedding-icon {
+            font-size: 60px;
+            color: var(--primary);
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .input-container h2 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 36px;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+
+        .input-container p {
+            color: var(--gray);
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--primary-dark);
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e2d4ca;
+            border-radius: 30px;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(174, 143, 122, 0.2);
+        }
+
+        .btn-mulai {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: var(--border-radius-xl);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-mulai::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-mulai:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-mulai:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* ============================================ */
+        /* SAMPUL UNDANGAN - BARIS 271-320             */
+        /* ============================================ */
         .cover-page {
             min-height: 100vh;
             background: linear-gradient(135deg, rgba(0,0,0,0.4), rgba(0,0,0,0.3)), url('5.jpeg') center/cover no-repeat;
+            background-size: cover;
+            background-position: center 30%;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -325,164 +553,1082 @@
             text-align: center;
             color: white;
             position: relative;
+            padding: 40px 20px;
+            z-index: 1;
         }
-        .input-page {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #fef9f4, #f5e7d9);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+
+        .cover-page::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.45);
+            z-index: -1;
         }
-        .input-container {
-            background: white;
-            border-radius: 28px;
-            padding: 40px;
-            text-align: center;
+
+        .cover-content {
+            position: relative;
+            z-index: 2;
             width: 100%;
-            max-width: 350px;
+            animation: fadeInScale 1s ease;
         }
-        .btn-mulai, .btn-buka-undangan {
-            background: var(--primary);
-            color: white;
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .to-guest {
+            font-size: 14px;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            font-weight: 300;
+            background: rgba(255,255,255,0.2);
+            display: inline-block;
+            padding: 6px 20px;
+            border-radius: var(--border-radius-xl);
+            backdrop-filter: blur(4px);
+        }
+
+        .guest-name-display {
+            font-size: 28px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #fff, #f5e6d3);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            line-height: 1.3;
+        }
+
+        .invite-text {
+            font-size: 16px;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            border-top: 1px solid rgba(255,255,255,0.5);
+            border-bottom: 1px solid rgba(255,255,255,0.5);
+            display: inline-block;
+            padding: 8px 16px;
+            font-weight: 300;
+        }
+
+        .couple-name {
+            font-size: 48px;
+            margin: 20px 0 10px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+            line-height: 1.2;
+        }
+
+        .date-cover {
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .btn-buka-undangan {
+            background: var(--gold);
+            color: var(--dark);
             border: none;
             padding: 12px 32px;
             border-radius: 40px;
-            cursor: pointer;
             font-weight: 600;
-            transition: var(--transition-fast);
+            margin-top: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 16px;
         }
-        .btn-mulai:hover, .btn-buka-undangan:hover {
-            background: var(--primary-dark);
+
+        .btn-buka-undangan:hover {
+            background: var(--gold-dark);
             transform: translateY(-2px);
         }
-        .music-control {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            background: var(--primary);
+
+        /* ============================================ */
+        /* KONTEN UTAMA - BARIS 321-370                */
+        /* ============================================ */
+        .main-content {
+            display: none;
+            background: var(--light);
+            position: relative;
+            z-index: 1;
+        }
+
+        .section {
+            padding: 48px 24px;
+            text-align: center;
+            border-bottom: 1px solid #f0e5dc;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section:nth-child(even) {
+            background: #fefaf5;
+        }
+
+        .section-title {
+            font-size: 32px;
+            color: var(--primary);
+            margin-bottom: 24px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title:before,
+        .section-title:after {
+            content: '✦';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold);
+            font-size: 20px;
+            opacity: 0.6;
+        }
+
+        .section-title:before {
+            left: -30px;
+        }
+
+        .section-title:after {
+            right: -30px;
+        }
+
+        .section-title:after {
+            content: '✦';
+        }
+
+        /* ============================================ */
+        /* MEMPELAI SECTION - BARIS 371-420            */
+        /* ============================================ */
+        .couple-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 32px;
+            margin-top: 20px;
+        }
+
+        .card-mempelai {
+            text-align: center;
+            width: 200px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .card-mempelai:hover {
+            transform: translateY(-5px);
+        }
+
+        .foto-bulat {
+            width: 160px;
+            height: 160px;
             border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--gold);
+            margin-bottom: 16px;
+            background: #e9ddd0;
+            transition: var(--transition);
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-mempelai:hover .foto-bulat {
+            transform: scale(1.05);
+            border-color: var(--gold-dark);
+        }
+
+        .nama-lengkap {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 6px;
+        }
+
+        .orang-tua {
+            font-size: 12px;
+            color: var(--gray);
+            line-height: 1.4;
+        }
+
+        .sparator {
+            font-size: 28px;
+            margin: 24px 0;
+            letter-spacing: 12px;
+        }
+
+        .sparator i {
+            animation: lovePulse 1.2s ease-in-out infinite;
+            display: inline-block;
+            color: var(--gold);
+        }
+
+        .sparator i:nth-child(1) { animation-delay: 0s; }
+        .sparator i:nth-child(2) { animation-delay: 0.2s; }
+        .sparator i:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes lovePulse {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.3); opacity: 1; text-shadow: 0 0 10px rgba(212,175,122,0.8); }
+        }
+
+        /* ============================================ */
+        /* ACARA CARD STYLES - BARIS 421-470           */
+        /* ============================================ */
+        .acara-card {
+            background: white;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: 24px 20px;
+            margin-bottom: 30px;
+            text-align: left;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .acara-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold), var(--primary), var(--gold));
+        }
+
+        .acara-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .acara-nama {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 16px;
+            border-left: 4px solid var(--gold);
+            padding-left: 16px;
+        }
+
+        .detail-info {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+        }
+
+        .detail-info i {
+            width: 24px;
+            color: var(--primary);
+            font-size: 16px;
+        }
+
+        /* ============================================ */
+        /* COUNTDOWN STYLES - BARIS 471-520            */
+        /* ============================================ */
+        .countdown-container {
+            background: linear-gradient(135deg, #fff5ea, #ffe8da);
+            border-radius: var(--border-radius-lg);
+            padding: 20px 16px;
+            margin: 20px 0 10px;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(212, 175, 122, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .countdown-container::after {
+            content: '❤️';
+            position: absolute;
+            bottom: -10px;
+            right: -10px;
+            font-size: 60px;
+            opacity: 0.1;
+            transform: rotate(-15deg);
+        }
+
+        .countdown-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+        }
+
+        .countdown-timer {
+            display: flex;
+            justify-content: space-evenly;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            background: white;
+            border-radius: var(--border-radius-md);
+            padding: 10px 0;
+            min-width: 70px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .countdown-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .countdown-number {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1;
+        }
+
+        .countdown-label {
+            font-size: 11px;
+            color: var(--gray);
+            text-transform: uppercase;
+            margin-top: 5px;
+            letter-spacing: 1px;
+        }
+
+        /* ============================================ */
+        /* CALENDAR BUTTON - BARIS 521-570             */
+        /* ============================================ */
+        .btn-calendar {
+            background: linear-gradient(135deg, var(--info), #1976D2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: var(--border-radius-xl);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 16px;
+            width: 100%;
+            transition: var(--transition);
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            z-index: 100;
-            border: none;
-            color: white;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-calendar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-calendar:hover::before {
+            left: 100%;
+        }
+
+        .btn-calendar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(33,150,243,0.4);
+        }
+
+        .calendar-success {
+            background: var(--success);
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: var(--border-radius-md);
+            font-size: 12px;
+            animation: slideDown 0.5s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ============================================ */
+        /* DENAH LOKASI - BARIS 571-620                */
+        /* ============================================ */
+        .denah-container {
+            background: #f0e8df;
+            border-radius: var(--border-radius-lg);
+            padding: 16px;
+            margin: 20px 0;
             box-shadow: var(--shadow-md);
         }
+
+        .denah-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .denah-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+
+        .zoom-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .zoom-btn {
+            background: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .zoom-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .map-wrapper {
+            position: relative;
+            overflow-x: auto;
+            overflow-y: auto;
+            border-radius: var(--border-radius-md);
+            background: #e0d5c8;
+            min-height: 400px;
+            max-height: 450px;
+        }
+
+        .denah-map {
+            position: relative;
+            background: #d9cec0;
+            margin: 0 auto;
+            transition: transform 0.2s ease;
+            transform-origin: 0 0;
+        }
+
+        .map-marker {
+            position: absolute;
+            cursor: pointer;
+            z-index: 20;
+            transition: transform 0.2s;
+        }
+
+        .map-marker:hover {
+            transform: scale(1.05);
+            z-index: 30;
+        }
+
+        .marker-icon {
+            background: white;
+            border-radius: 20px;
+            padding: 6px 12px;
+            font-size: 11px;
+            font-weight: 600;
+            box-shadow: var(--shadow-md);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border-left: 3px solid var(--primary);
+        }
+
+        .marker-pesta {
+            background: #ff6b6b;
+            color: white;
+            border-left-color: white;
+            font-weight: bold;
+        }
+
+        .legenda {
+            margin-top: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        .legenda-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(255,255,255,0.7);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .legenda-color {
+            width: 10px;
+            height: 10px;
+            border-radius: 2px;
+        }
+
+        .btn-direction {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 40px;
+            margin-top: 16px;
+            width: 100%;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-direction:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* ============================================ */
+        /* DOA BOX STYLES - BARIS 621-670              */
+        /* ============================================ */
+        .doa-box {
+            background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));
+            padding: 28px;
+            border-radius: var(--border-radius-lg);
+            font-style: italic;
+            color: #4a3a2e;
+            margin: 20px 0;
+            font-size: 16px;
+            line-height: 1.8;
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+
+        .doa-box::before,
+        .doa-box::after {
+            content: '"';
+            position: absolute;
+            font-size: 60px;
+            color: var(--gold);
+            opacity: 0.3;
+            font-family: serif;
+        }
+
+        .doa-box::before {
+            top: -10px;
+            left: 10px;
+        }
+
+        .doa-box::after {
+            bottom: -30px;
+            right: 15px;
+            transform: rotate(180deg);
+        }
+
+        /* ============================================ */
+        /* GALLERY SLIDER - BARIS 671-720              */
+        /* ============================================ */
+        .gallery-slider {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: var(--border-radius-lg);
+            margin: 20px 0;
+        }
+
+        .slider-container {
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slider-slide {
+            min-width: 100%;
+        }
+
+        .slider-slide img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: var(--border-radius-md);
+            transition: var(--transition);
+        }
+
+        .slider-slide img:hover {
+            transform: scale(1.02);
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(174,143,122,0.9);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 10;
+        }
+
+        .slider-btn:hover {
+            background: var(--primary);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .slider-prev { left: 10px; }
+        .slider-next { right: 10px; }
+
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #d4c4b8;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .dot.active {
+            width: 28px;
+            border-radius: 10px;
+            background: var(--primary);
+        }
+
+        /* ============================================ */
+        /* FORM STYLES - BARIS 721-770                 */
+        /* ============================================ */
+        .form-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: var(--primary-dark);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2d4ca;
+            border-radius: var(--border-radius-lg);
+            font-family: 'Work Sans', sans-serif;
+            transition: var(--transition);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(174,143,122,0.2);
+        }
+
+        .btn-kirim {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px;
+            width: 100%;
+            border-radius: var(--border-radius-xl);
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-kirim:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* ============================================ */
+        /* TITIP HADIAH SECTION - BARIS 771-820        */
+        /* ============================================ */
+        .rekening-list {
+            background: #fcf8f3;
+            border-radius: var(--border-radius-lg);
+            padding: 20px;
+            margin-top: 16px;
+        }
+
+        .rek-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            background: white;
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .rek-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .rek-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-dana {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #1a6d5e, #0d4f44);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 2s infinite;
+        }
+
+        .logo-dana svg {
+            width: 35px;
+            height: 35px;
+        }
+
+        .rek-info {
+            text-align: left;
+        }
+
+        .bank-name {
+            font-weight: 700;
+            color: var(--primary-dark);
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .bank-name span {
+            background: #1a6d5e;
+            color: white;
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 20px;
+        }
+
+        .rek-number {
+            font-size: 14px;
+            color: var(--gray);
+            margin-top: 4px;
+            font-family: monospace;
+            letter-spacing: 1px;
+        }
+
+        .copy-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: var(--border-radius-xl);
+            font-size: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .copy-btn:hover {
+            background: var(--primary-dark);
+            transform: scale(1.02);
+        }
+
+        .qr-dana {
+            margin-top: 16px;
+            padding: 16px;
+            background: white;
+            border-radius: var(--border-radius-md);
+            text-align: center;
+            border: 2px dashed var(--primary);
+            transition: var(--transition);
+        }
+
+        .qr-dana:hover {
+            background: #fefaf5;
+        }
+
+        .qr-dana i {
+            font-size: 60px;
+            color: #1a6d5e;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* ============================================ */
+        /* FOOTER & MUSIC CONTROL - BARIS 821-870      */
+        /* ============================================ */
         footer {
             background: var(--primary-dark);
             color: white;
             text-align: center;
             padding: 32px 20px;
+            font-size: 12px;
+            position: relative;
+            overflow: hidden;
         }
-        .toast {
+
+        footer::before {
+            content: '❤️';
+            position: absolute;
+            bottom: -20px;
+            left: -20px;
+            font-size: 100px;
+            opacity: 0.1;
+            transform: rotate(15deg);
+        }
+
+        footer::after {
+            content: '❤️';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 100px;
+            opacity: 0.1;
+            transform: rotate(-15deg);
+        }
+
+        .music-control {
             position: fixed;
-            bottom: 100px;
+            bottom: 90px;
+            right: 20px;
+            z-index: 100;
+            background: var(--primary);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            border: none;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .music-control:hover {
+            transform: scale(1.1);
+        }
+
+        .music-control.playing {
+            animation: musicPulse 1.5s infinite;
+        }
+
+        @keyframes musicPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(174,143,122,0.7); }
+            50% { box-shadow: 0 0 0 15px rgba(174,143,122,0); }
+        }
+
+        /* ============================================ */
+        /* TOAST NOTIFICATION - BARIS 871-920          */
+        /* ============================================ */
+        .toast-notification {
+            position: fixed;
+            bottom: 160px;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translateX(-50%) translateY(100px);
             background: rgba(0,0,0,0.85);
             color: white;
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-size: 13px;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 14px;
             z-index: 1000;
             opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
+            transition: all 0.3s ease;
             white-space: nowrap;
+            backdrop-filter: blur(10px);
         }
-        .toast.show {
+
+        .toast-notification.show {
+            transform: translateX(-50%) translateY(0);
             opacity: 1;
         }
-        .scroll-indicator {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
-            cursor: pointer;
-            background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(4px);
-            padding: 8px 16px;
-            border-radius: 30px;
-            font-size: 12px;
+
+        /* ============================================ */
+        /* RESPONSIVE STYLES - BARIS 921-970           */
+        /* ============================================ */
+        @media (max-width: 450px) {
+            .couple-name { font-size: 40px; }
+            .guest-name-display { font-size: 22px; }
+            .section { padding: 32px 20px; }
+            .foto-bulat { width: 130px; height: 130px; }
+            .countdown-item { min-width: 60px; }
+            .countdown-number { font-size: 24px; }
+            .section-title { font-size: 28px; }
+            .section-title:before,
+            .section-title:after {
+                display: none;
+            }
+            .rek-left { gap: 12px; }
+            .logo-dana { width: 45px; height: 45px; }
+            .marker-icon { font-size: 9px; padding: 4px 8px; }
+            .toast-notification { white-space: normal; text-align: center; width: 80%; font-size: 12px; }
+            .scroll-direction { font-size: 9px; padding: 4px 8px; top: 10px; right: 10px; }
         }
-        @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(10px); }
+
+        /* ============================================ */
+        /* ANIMATION KEYFRAMES - BARIS 971-1000        */
+        /* ============================================ */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
-        .acara-card {
-            background: white;
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: var(--shadow-md);
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
-        input, select, textarea {
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .animate-fadeIn { animation: fadeIn 0.6s ease; }
+        .animate-slideLeft { animation: slideInLeft 0.6s ease; }
+        .animate-slideRight { animation: slideInRight 0.6s ease; }
+        .animate-zoomIn { animation: zoomIn 0.5s ease; }
+
+        /* ============================================ */
+        /* CONFETTI CANVAS - BARIS 1001-1050           */
+        /* ============================================ */
+        #confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            padding: 12px;
-            border-radius: 30px;
-            border: 1px solid #ddd;
-            margin-bottom: 12px;
-            font-family: inherit;
-        }
-        button {
-            cursor: pointer;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10000;
         }
     </style>
 </head>
 <body>
 
+<!-- LOADING SCREEN -->
 <div class="loading-screen" id="loadingScreen">
-    <div class="loader"></div>
-    <div style="margin-top: 20px; color: white;">Loading...</div>
+    <div class="loader">
+        <div class="loader-ring"></div>
+        <div class="loader-ring"></div>
+        <div class="loader-ring"></div>
+    </div>
+    <div class="loading-text">Loading...</div>
 </div>
 
+<!-- SCROLL PROGRESS BAR -->
 <div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- SCROLL DIRECTION INDICATOR -->
 <div class="scroll-direction" id="scrollDirection">↓ Scroll Down</div>
 
-<div class="toast" id="toast"></div>
+<!-- CONFETTI CANVAS -->
+<canvas id="confetti-canvas"></canvas>
+
+<!-- FLOATING HEARTS BACKGROUND -->
+<div class="bg-floating-hearts" id="floatingHearts"></div>
+
+<!-- TOAST NOTIFICATION -->
+<div class="toast-notification" id="toastNotification">✨ Selamat Datang!</div>
+
+<!-- BACK TO TOP BUTTON -->
+<button class="back-to-top" id="backToTop">
+    <i class="fas fa-arrow-up"></i>
+</button>
 
 <!-- HALAMAN INPUT NAMA -->
 <div class="input-page" id="inputPage">
     <div class="input-container reveal-scale">
-        <i class="fas fa-heart" style="font-size: 50px; color: var(--primary); margin-bottom: 20px;"></i>
-        <h2 style="font-family: 'Great Vibes'; font-size: 36px; color: var(--primary-dark);">Undangan Pernikahan</h2>
-        <p style="margin: 10px 0 20px;">Yudi & Ratih</p>
-        <input type="text" id="namaInput" placeholder="Masukkan nama Anda" autocomplete="off">
-        <button class="btn-mulai" id="btnMulai">Lihat Undangan</button>
+        <div class="wedding-icon">
+            <i class="fas fa-heart"></i>
+        </div>
+        <h2>Undangan Pernikahan</h2>
+        <p>Yudi & Ratih</p>
+        
+        <div class="input-group">
+            <label><i class="fas fa-user"></i> Masukkan Nama Anda</label>
+            <input type="text" id="namaTamuInput" placeholder="Contoh: Bapak/Ibu/Saudara/i" autocomplete="off">
+        </div>
+        
+        <button class="btn-mulai" id="btnMulai">
+            <i class="fas fa-envelope"></i> Lihat Undangan
+        </button>
+        
+        <div class="ornamen" style="margin-top: 20px;">
+            <i class="fas fa-ring"></i> <i class="fas fa-heart"></i> <i class="fas fa-ring"></i>
+        </div>
     </div>
 </div>
 
 <!-- SAMPUL UNDANGAN -->
 <div class="cover-page" id="coverPage" style="display: none;">
-    <div style="text-align: center; padding: 20px;">
-        <div style="font-size: 14px; letter-spacing: 2px;">💌 Kepada Yth.</div>
-        <div style="font-size: 24px; font-weight: 600; margin: 10px 0;" id="guestNameDisplay"></div>
-        <div style="font-size: 12px; margin: 10px 0;">The Wedding of</div>
-        <h1 style="font-family: 'Great Vibes'; font-size: 48px; margin: 20px 0;">Yudi & Ratih</h1>
-        <div>Sabtu, 25 April 2026</div>
-        <button class="btn-buka-undangan" id="btnBukaUndangan" style="margin-top: 20px;">Buka Undangan</button>
-    </div>
-    <div class="scroll-indicator" id="scrollIndicator">
-        <i class="fas fa-chevron-down"></i> Scroll
+    <div class="cover-content">
+        <div class="to-guest">💌 Kepada Yth.</div>
+        <div class="guest-name-display" id="guestNameDisplay"></div>
+        <div class="invite-text">The Wedding of</div>
+        <h1 class="couple-name">Yudi <br> & <br> Ratih</h1>
+        <div class="date-cover">Sabtu, 25 April 2026</div>
+        <button class="btn-buka-undangan" id="btnBukaUndangan">
+            <i class="fas fa-arrow-right"></i> Buka Undangan
+        </button>
     </div>
 </div>
 
 <!-- KONTEN UTAMA -->
-<div class="main-content" id="mainContent" style="display: none;">
+<div class="main-content" id="mainContent">
     <button class="music-control" id="musicToggle">
-        <i class="fas fa-music"></i>
-    </button>
-    <button class="back-to-top" id="backToTop">
-        <i class="fas fa-arrow-up"></i>
+        <i class="fas fa-music" id="musicIcon"></i>
     </button>
 
-    <!-- Section 1 - Assalamualaikum -->
+    <!-- BAGIAN 1: ASSALAMUALAIKUM -->
     <div class="section reveal-fade-up" id="sec1">
         <h2 class="section-title">Assalamu'alaikum</h2>
         <p style="margin-top: 16px; line-height: 1.8;" id="salamPersonal"></p>
@@ -493,132 +1639,276 @@
         <p style="margin-top: 8px; font-size: 12px; color: var(--gold);">QS. Ar-Rum: 21</p>
     </div>
 
-    <!-- Section 2 - Mempelai dengan Stagger -->
+    <!-- BAGIAN 2: MEMPELAI -->
     <div class="section" style="background: #fefaf5;">
         <h2 class="section-title reveal-fade-down">Mempelai</h2>
-        <div class="stagger-reveal" style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
+        <div class="stagger-reveal" style="display: flex; justify-content: center; gap: 32px; flex-wrap: wrap;">
             <div class="stagger-item" style="text-align: center;">
                 <img class="foto-bulat" src="2.jpeg" alt="Yudi">
-                <div style="font-weight: 600; margin-top: 12px;">Muhammad Wahyudi Tarigan</div>
-                <div style="font-size: 12px; color: var(--gray);">Putra dari Bapak Parlon Tarigan & Ibu Lismawati Br Sitepu</div>
+                <div class="nama-lengkap">Muhammad Wahyudi Tarigan</div>
+                <div class="orang-tua">Putra dari Bapak Parlon Tarigan & Ibu Lismawati Br Sitepu</div>
             </div>
             <div class="stagger-item" style="text-align: center;">
                 <img class="foto-bulat" src="1.jpeg" alt="Ratih">
-                <div style="font-weight: 600; margin-top: 12px;">Ratih Febriani Br Sinaga</div>
-                <div style="font-size: 12px; color: var(--gray);">Putri dari Bapak Tumino Sinaga & Ibu Rohana Sagala</div>
+                <div class="nama-lengkap">Ratih Febriani Br Sinaga</div>
+                <div class="orang-tua">Putri dari Bapak Tumino Sinaga & Ibu Rohana Sagala</div>
             </div>
         </div>
-        <div class="reveal-bounce" style="margin-top: 20px;">
-            <i class="fas fa-heart" style="color: var(--gold); font-size: 24px;"></i>
-            <i class="fas fa-heart" style="color: var(--gold); font-size: 24px; margin: 0 8px;"></i>
-            <i class="fas fa-heart" style="color: var(--gold); font-size: 24px;"></i>
+        
+        <div class="sparator reveal-scale" style="margin-top: 20px;">
+            <i class="fas fa-heart"></i>
+            <i class="fas fa-heart"></i>
+            <i class="fas fa-heart"></i>
         </div>
+        
+        <p style="font-size: 13px; color: var(--gray);">Mengundang ke hadirat Allah SWT, kami mohon doa restu</p>
     </div>
 
-    <!-- Section 3 - Akad & Resepsi -->
-    <div class="section">
+    <!-- BAGIAN 3: AKAD & RESEPSI -->
+    <div class="section" style="background: #fefaf5;">
         <h2 class="section-title reveal-slide-left">Akad & Resepsi</h2>
         
-        <div class="reveal-slide-right">
-            <div class="acara-card">
-                <div style="font-weight: 600; color: var(--primary); margin-bottom: 12px;">📖 Akad Nikah</div>
-                <div><i class="far fa-calendar-alt"></i> Jumat, 24 April 2026 | 14.00 WIB</div>
-                <div><i class="fas fa-map-marker-alt"></i> Kantor KUA Naman, Kec.Naman Teran, Kab.Karo</div>
-            </div>
+        <div class="acara-card reveal-slide-right">
+            <div class="acara-nama">📖 Akad Nikah</div>
+            <div class="detail-info"><i class="far fa-calendar-alt"></i> Jumat, 24 April 2026</div>
+            <div class="detail-info"><i class="far fa-clock"></i> Pukul 14.00 - s/d Selesai</div>
+            <div class="detail-info"><i class="fas fa-map-marker-alt"></i> Kantor KUA Naman, Kec.Naman Teran, Kab.Karo</div>
         </div>
 
-        <div class="reveal-slide-left">
-            <div class="acara-card">
-                <div style="font-weight: 600; color: var(--primary); margin-bottom: 12px;">🍽️ Resepsi Pernikahan</div>
-                <div><i class="far fa-calendar-alt"></i> Sabtu, 25 April 2026 | 08.00 WIB</div>
-                <div><i class="fas fa-map-marker-alt"></i> Jambur Kuta Gugung, Kec. Naman Teran, Kab. Karo</div>
-            </div>
+        <div class="acara-card reveal-slide-left">
+            <div class="acara-nama">🍽️ Resepsi Pernikahan</div>
+            <div class="detail-info"><i class="far fa-calendar-alt"></i> Sabtu, 25 April 2026</div>
+            <div class="detail-info"><i class="far fa-clock"></i> Pukul 08.00 - s/d Selesai</div>
+            <div class="detail-info"><i class="fas fa-map-marker-alt"></i> Jambur Kuta Gugung, Kec. Naman Teran, Kab. Karo</div>
         </div>
 
-        <div class="reveal-scale" style="background: linear-gradient(135deg, #fff5ea, #ffe8da); border-radius: 20px; padding: 20px; margin-top: 20px;">
-            <div style="font-weight: 600;">⏳ Menuju Hari Bahagia</div>
-            <div style="display: flex; justify-content: center; gap: 15px; margin: 15px 0;">
-                <div><span id="days" style="font-size: 24px; font-weight: bold;">00</span><br>Hari</div>
-                <div><span id="hours" style="font-size: 24px; font-weight: bold;">00</span><br>Jam</div>
-                <div><span id="minutes" style="font-size: 24px; font-weight: bold;">00</span><br>Menit</div>
-                <div><span id="seconds" style="font-size: 24px; font-weight: bold;">00</span><br>Detik</div>
+        <!-- COUNTDOWN + TOMBOL KALENDER -->
+        <div class="countdown-container reveal-scale">
+            <div class="countdown-title">
+                <i class="fas fa-hourglass-half"></i> Menuju Hari Bahagia
             </div>
+            <div class="countdown-timer">
+                <div class="countdown-item"><div class="countdown-number" id="days">00</div><div class="countdown-label">Hari</div></div>
+                <div class="countdown-item"><div class="countdown-number" id="hours">00</div><div class="countdown-label">Jam</div></div>
+                <div class="countdown-item"><div class="countdown-number" id="minutes">00</div><div class="countdown-label">Menit</div></div>
+                <div class="countdown-item"><div class="countdown-number" id="seconds">00</div><div class="countdown-label">Detik</div></div>
+            </div>
+            <div class="event-name-small" style="font-size: 13px; margin-top: 12px;">
+                ⏳ Resepsi Pernikahan • Sabtu, 25 April 2026
+            </div>
+            
+            <button class="btn-calendar" id="addToCalendarBtn">
+                <i class="fas fa-calendar-plus"></i> Tambahkan ke Kalender
+            </button>
+            <div id="calendarNotification" style="margin-top: 10px;"></div>
+        </div>
+
+        <!-- DENAH LOKASI -->
+        <div class="denah-container reveal-rotate">
+            <div class="denah-header">
+                <div class="denah-title"><i class="fas fa-map"></i> Peta Lokasi Kuta Gugung</div>
+                <div class="zoom-controls">
+                    <button class="zoom-btn" id="zoomInBtn">+</button>
+                    <button class="zoom-btn" id="zoomOutBtn">-</button>
+                    <button class="zoom-btn" id="resetZoomBtn">⟳</button>
+                </div>
+            </div>
+            <div class="map-wrapper" id="mapWrapper">
+                <div class="denah-map" id="denahMap" style="width: 800px; height: 500px;"></div>
+            </div>
+            <div class="legenda">
+                <div class="legenda-item"><div class="legenda-color" style="background: #ff6b6b;"></div><span>Lokasi Pesta</span></div>
+                <div class="legenda-item"><div class="legenda-color" style="background: #4CAF50;"></div><span>UMKM / Toko</span></div>
+                <div class="legenda-item"><div class="legenda-color" style="background: #2196F3;"></div><span>Fasilitas Umum</span></div>
+                <div class="legenda-item"><div class="legenda-color" style="background: #c9b69a;"></div><span>Jalan</span></div>
+            </div>
+            <button class="btn-direction" id="directionBtn">
+                <i class="fas fa-directions"></i> Petunjuk Arah ke Lokasi Pesta
+            </button>
         </div>
     </div>
 
-    <!-- Section 4 - Doa Restu -->
-    <div class="section" style="background: #fefaf5;">
-        <h2 class="section-title reveal-rotate">Doa Restu</h2>
-        <div class="reveal-blur" style="background: var(--secondary); padding: 28px; border-radius: 28px; font-style: italic;">
+    <!-- BAGIAN 4: DOA RESTU -->
+    <div class="section">
+        <h2 class="section-title reveal-blur">Doa Restu</h2>
+        <div class="doa-box reveal-scale">
             "Ya Allah, berkahilah pernikahan mereka, karuniakanlah keturunan yang shalih, 
             dan jadikanlah keluarga mereka sebagai keluarga yang sakinah, mawaddah, warahmah. Aamiin Ya Rabbal Alamin."
         </div>
-    </div>
-
-    <!-- Section 5 - Galeri -->
-    <div class="section">
-        <h2 class="section-title reveal-flip">Gallery</h2>
-        <div class="stagger-reveal" style="display: flex; gap: 12px; overflow-x: auto; padding: 10px 0; justify-content: center;">
-            <div class="stagger-item"><img src="Sampul.jpeg" style="width: 110px; height: 110px; object-fit: cover; border-radius: 16px;"></div>
-            <div class="stagger-item"><img src="3.jpeg" style="width: 110px; height: 110px; object-fit: cover; border-radius: 16px;"></div>
-            <div class="stagger-item"><img src="4.jpeg" style="width: 110px; height: 110px; object-fit: cover; border-radius: 16px;"></div>
+        
+        <!-- WISDOM QUOTE -->
+        <div style="margin-top: 20px; padding: 16px; background: linear-gradient(135deg, #fff5ea, #ffe8da); border-radius: 20px;" class="reveal-fade-up">
+            <p style="font-size: 13px; color: var(--primary-dark); font-style: italic;">
+                <i class="fas fa-quote-left"></i> Pernikahan bukanlah tentang menemukan seseorang yang bisa kamu hidupi, 
+                tetapi tentang menemukan seseorang yang tanpanya kamu tidak bisa hidup.
+                <i class="fas fa-quote-right"></i>
+            </p>
         </div>
     </div>
 
-    <!-- Section 6 - Konfirmasi -->
-    <div class="section" style="background: #fefaf5;">
-        <h2 class="section-title reveal-fade-up">Konfirmasi Kehadiran</h2>
-        <form id="rsvpForm" class="reveal-fade-up">
-            <input type="text" id="namaTamu" placeholder="Nama Lengkap">
-            <select id="kehadiran">
-                <option value="">Pilih Kehadiran</option>
-                <option value="Hadir">✅ Hadir</option>
-                <option value="Tidak Hadir">❌ Tidak Hadir</option>
-            </select>
-            <textarea id="ucapan" rows="3" placeholder="Ucapan & Doa"></textarea>
-            <button type="submit" style="background: var(--primary); color: white; border: none; padding: 12px; width: 100%; border-radius: 30px; font-weight: 600;">Kirim Konfirmasi</button>
-        </form>
-        <div id="ucapanList" style="margin-top: 30px; text-align: left;"></div>
+    <!-- BAGIAN 5: GALERI -->
+    <div class="section" style="background: #fff9f2;">
+        <h2 class="section-title reveal-slide-right">Gallery</h2>
+        <div class="gallery-slider reveal-scale">
+            <button class="slider-btn slider-prev" id="prevSlide">❮</button>
+            <div class="slider-container" id="sliderContainer">
+                <div class="slider-slide"><img src="Sampul.jpeg" alt="Gallery 1"></div>
+                <div class="slider-slide"><img src="3.jpeg" alt="Gallery 2"></div>
+                <div class="slider-slide"><img src="4.jpeg" alt="Gallery 3"></div>
+            </div>
+            <button class="slider-btn slider-next" id="nextSlide">❯</button>
+        </div>
+        <div class="slider-dots" id="sliderDots"></div>
+        
+        <!-- GALERI INFO -->
+        <p style="font-size: 12px; color: var(--gray); margin-top: 16px;" class="reveal-fade-down">
+            <i class="fas fa-camera"></i> Momen kebahagiaan kami
+        </p>
     </div>
 
-    <!-- Section 7 - Hadiah -->
+    <!-- BAGIAN 6: KONFIRMASI KEHADIRAN -->
+    <div class="section">
+        <h2 class="section-title reveal-fade-up">Konfirmasi Kehadiran</h2>
+        <form id="formKehadiran" class="reveal-fade-up">
+            <div class="form-group">
+                <label><i class="fas fa-user"></i> Nama Lengkap</label>
+                <input type="text" id="namaTamuForm" placeholder="Nama Lengkap" required>
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-check-circle"></i> Status Kehadiran</label>
+                <select id="kehadiranStatus" required>
+                    <option value="">-- Pilih Kehadiran --</option>
+                    <option value="Hadir">✅ Hadir</option>
+                    <option value="Tidak Hadir">❌ Tidak Hadir</option>
+                    <option value="Ragu">🤔 Ragu-ragu</option>
+                </select>
+            </div>
+            <div class="form-group" id="jumlahOrangGroup" style="display: none;">
+                <label><i class="fas fa-users"></i> Jumlah Orang</label>
+                <input type="number" id="jumlahOrang" placeholder="Jumlah orang" min="1" max="10">
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-comment"></i> Ucapan & Doa</label>
+                <textarea id="ucapanTamu" rows="3" placeholder="Tulis ucapan & doa untuk pengantin..."></textarea>
+            </div>
+            <button type="submit" class="btn-kirim">
+                <i class="fas fa-paper-plane"></i> Kirim Konfirmasi
+            </button>
+        </form>
+        <div id="notifKehadiran" style="margin-top: 16px; font-size: 13px;"></div>
+        
+        <!-- DAFTAR UCAPAN -->
+        <div style="margin-top: 32px;" class="reveal-slide-left">
+            <h4 style="color: var(--primary); margin-bottom: 16px;">
+                <i class="fas fa-comments"></i> Ucapan & Doa dari Tamu
+            </h4>
+            <div id="listUcapan" style="text-align: left; max-height: 300px; overflow-y: auto; padding-right: 5px;"></div>
+        </div>
+    </div>
+
+    <!-- BAGIAN 7: TITIP HADIAH -->
     <div class="section">
         <h2 class="section-title reveal-slide-right">Titip Hadiah</h2>
-        <div class="reveal-slide-left" style="background: white; border-radius: 20px; padding: 20px; box-shadow: var(--shadow-md);">
-            <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
-                <div style="width: 50px; height: 50px; background: #1a6d5e; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">D</div>
-                <div style="flex: 1;">
-                    <div><strong>Dana</strong></div>
-                    <div>0813-6132-6617</div>
-                    <div style="font-size: 11px; color: var(--gray);">a.n. Muhammad Wahyudi Tarigan</div>
+        <p style="font-size: 13px; color: var(--gray); margin-bottom: 16px;" class="reveal-fade-down">
+            Doa restu Anda adalah hadiah terindah. Namun jika ingin memberikan tanda kasih, dapat melalui:
+        </p>
+        <div class="rekening-list reveal-scale">
+            <div class="rek-item">
+                <div class="rek-left">
+                    <div class="logo-dana">
+                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="50" cy="50" r="45" fill="white" stroke="white" stroke-width="2"/>
+                            <text x="50" y="68" text-anchor="middle" font-size="38" font-weight="900" font-family="Arial" fill="#1a6d5e">D</text>
+                        </svg>
+                    </div>
+                    <div class="rek-info">
+                        <div class="bank-name">
+                            <i class="fas fa-wallet"></i> Dana 
+                            <span>Dompet Digital</span>
+                        </div>
+                        <div class="rek-number">
+                            <i class="fas fa-qrcode"></i> 0813-6132-6617
+                        </div>
+                        <div class="rek-number" style="font-size: 11px;">
+                            a.n. Muhammad Wahyudi Tarigan
+                        </div>
+                    </div>
                 </div>
-                <button class="copy-btn" data-rek="081361326617" style="background: var(--primary); border: none; padding: 8px 16px; border-radius: 20px; color: white;">Salin</button>
+                <button class="copy-btn" data-rek="081361326617">
+                    <i class="fas fa-copy"></i> Salin
+                </button>
             </div>
+            
+            <div class="qr-dana">
+                <i class="fas fa-qrcode"></i>
+                <p><i class="fas fa-mobile-alt"></i> Scan QR Code atau klik Salin untuk transfer via Dana</p>
+                <p style="font-size: 11px; margin-top: 5px; color: var(--gray);">
+                    *Terima kasih atas kebaikan dan doa restunya
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- BAGIAN 8: PENUTUP -->
+    <div class="section" style="border-bottom: none;">
+        <h2 class="section-title reveal-rotate">Terima Kasih</h2>
+        <p style="margin: 16px 0;" class="reveal-fade-up">Kehadiran dan doa restu Anda adalah kebahagiaan bagi kami.</p>
+        <p class="reveal-fade-down">Wassalamu'alaikum Wr. Wb.</p>
+        
+        <div style="margin-top: 24px; display: flex; justify-content: center; gap: 20px;" class="reveal-scale">
+            <i class="fas fa-heart" style="color: var(--gold); animation: pulse 1.5s infinite;"></i>
+            <i class="fas fa-ring" style="color: var(--gold);"></i>
+            <i class="fas fa-heart" style="color: var(--gold); animation: pulse 1.5s infinite 0.5s;"></i>
         </div>
     </div>
 
     <footer>
         <p>© 2025 - Undangan Pernikahan Digital</p>
-        <p>Yudi & Ratih | 25 April 2026</p>
-        <p>Made with <i class="fas fa-heart"></i></p>
+        <p style="margin-top: 8px; font-size: 11px;">Yudi & Ratih | 25 April 2026</p>
+        <p style="margin-top: 8px; font-size: 10px;">Made with <i class="fas fa-heart" style="color: #ff6b6b;"></i> for our special day</p>
     </footer>
 </div>
 
-<audio id="bgMusic" loop>
+<audio id="bgMusic" loop preload="auto">
     <source src="lagu.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-    // ==================== SCROLL REVEAL WITH DIRECTION DETECTION ====================
-    
-    // Track scroll direction
+    // ============================================ //
+    // KONFIGURASI DAN VARIABEL GLOBAL - BARIS 1051-1100
+    // ============================================ //
+    let guestOriginalName = "";
+    let guestDisplayName = "";
+    let isMusicPlaying = false;
+    let currentZoom = 1;
+    let mapElement, mapWrapper;
+    let floatingHeartsInterval;
+    let confettiInterval;
     let lastScrollY = window.scrollY;
     let scrollDirection = 'down';
-    const directionIndicator = document.getElementById('scrollDirection');
     
-    // Update scroll direction indicator
+    // DOM Elements
+    const inputPage = document.getElementById('inputPage');
+    const coverPage = document.getElementById('coverPage');
+    const mainContent = document.getElementById('mainContent');
+    const loadingScreen = document.getElementById('loadingScreen');
+    const toastNotification = document.getElementById('toastNotification');
+    const bgMusic = document.getElementById('bgMusic');
+    const musicToggle = document.getElementById('musicToggle');
+    const musicIcon = document.getElementById('musicIcon');
+    const progressBar = document.getElementById('scrollProgress');
+    const directionIndicator = document.getElementById('scrollDirection');
+    const backToTop = document.getElementById('backToTop');
+    
+    // ============================================ //
+    // SCROLL DIRECTION AND PROGRESS - BARIS 1101-1150
+    // ============================================ //
+    
+    // Update scroll direction and progress
     window.addEventListener('scroll', () => {
         const currentScrollY = window.scrollY;
+        
+        // Update direction
         if (currentScrollY > lastScrollY) {
             scrollDirection = 'down';
             if (directionIndicator) directionIndicator.innerHTML = '↓ Scroll Down';
@@ -628,38 +1918,44 @@
         }
         lastScrollY = currentScrollY;
         
-        // Hide indicator after 1.5 seconds of no scroll
+        // Hide indicator after 1.5 seconds
         clearTimeout(window.dirTimeout);
-        directionIndicator.style.opacity = '0.9';
+        if (directionIndicator) directionIndicator.style.opacity = '0.9';
         window.dirTimeout = setTimeout(() => {
             if (directionIndicator) directionIndicator.style.opacity = '0.4';
         }, 1500);
-    });
-    
-    // Progress bar
-    const progressBar = document.getElementById('scrollProgress');
-    window.addEventListener('scroll', () => {
+        
+        // Update progress bar
         const winScroll = document.documentElement.scrollTop;
         const height = document.documentElement.scrollHeight - window.innerHeight;
         const scrolled = (winScroll / height) * 100;
         if (progressBar) progressBar.style.transform = `scaleX(${scrolled / 100})`;
         
-        // Back to top button
-        const backBtn = document.getElementById('backToTop');
-        if (backBtn) {
-            if (winScroll > 300) backBtn.classList.add('show');
-            else backBtn.classList.remove('show');
+        // Back to top button visibility
+        if (backToTop) {
+            if (winScroll > 300) backToTop.classList.add('show');
+            else backToTop.classList.remove('show');
         }
     });
     
-    // Intersection Observer with direction-aware animations
+    // Back to top click handler
+    if (backToTop) {
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+    
+    // ============================================ //
+    // SCROLL REVEAL OBSERVER - BARIS 1151-1200
+    // ============================================ //
+    
+    // Get all elements with reveal classes
     const revealElements = document.querySelectorAll([
         '.reveal-fade-up', '.reveal-fade-down', '.reveal-slide-left', 
         '.reveal-slide-right', '.reveal-scale', '.reveal-rotate', 
-        '.reveal-blur', '.reveal-flip', '.reveal-bounce', '.stagger-reveal'
+        '.reveal-blur', '.stagger-reveal'
     ].join(','));
     
-    // Store element's original animation class
     const elementData = new Map();
     
     const revealObserver = new IntersectionObserver((entries) => {
@@ -678,7 +1974,7 @@
                 // Element keluar viewport - tambah exit animation sesuai arah
                 el.classList.remove('revealed');
                 
-                // Tentukan exit class berdasarkan jenis animasi dan arah scroll
+                // Tentukan exit class berdasarkan jenis animasi
                 let exitClass = '';
                 if (el.classList.contains('reveal-fade-up')) {
                     exitClass = 'reveal-exit-up';
@@ -694,8 +1990,6 @@
                     exitClass = 'reveal-exit-rotate';
                 } else if (el.classList.contains('reveal-blur')) {
                     exitClass = 'reveal-exit-blur';
-                } else if (el.classList.contains('reveal-flip')) {
-                    exitClass = 'reveal-exit-flip';
                 }
                 
                 if (exitClass) {
@@ -717,143 +2011,577 @@
         rootMargin: '0px 0px -30px 0px'
     });
     
+    // Observe all reveal elements
     revealElements.forEach(el => {
-        // Pastikan elemen memiliki transition
-        el.style.transition = 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), filter 0.6s ease';
+        el.style.transition = 'opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1), filter 0.7s ease';
         revealObserver.observe(el);
     });
     
-    // Observer untuk stagger container
-    document.querySelectorAll('.stagger-reveal').forEach(container => {
-        revealObserver.observe(container);
-    });
+    // ============================================ //
+    // LOADING SCREEN - BARIS 1201-1250
+    // ============================================ //
+    function showToast(message, type = 'success') {
+        toastNotification.innerHTML = message;
+        toastNotification.classList.add('show');
+        setTimeout(() => {
+            toastNotification.classList.remove('show');
+        }, 3000);
+    }
     
-    // ==================== LOADING ====================
+    // Hide loading screen after content loads
     window.addEventListener('load', () => {
         setTimeout(() => {
-            const loading = document.getElementById('loadingScreen');
-            loading.classList.add('hide');
-            setTimeout(() => loading.style.display = 'none', 800);
-        }, 1000);
+            loadingScreen.classList.add('hide');
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 800);
+            createFloatingHearts();
+        }, 1500);
     });
     
-    // ==================== INPUT NAME ====================
-    let guestName = '';
-    const inputPageEl = document.getElementById('inputPage');
-    const coverPageEl = document.getElementById('coverPage');
-    const mainContentEl = document.getElementById('mainContent');
-    const namaInput = document.getElementById('namaInput');
+    // ============================================ //
+    // FLOATING HEARTS BACKGROUND - BARIS 1251-1300
+    // ============================================ //
+    function createFloatingHearts() {
+        const container = document.getElementById('floatingHearts');
+        if (!container) return;
+        
+        setInterval(() => {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.innerHTML = ['❤️', '💕', '💖', '💗', '💓'][Math.floor(Math.random() * 5)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            heart.style.animationDuration = (Math.random() * 8 + 6) + 's';
+            heart.style.animationDelay = Math.random() * 5 + 's';
+            container.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 14000);
+        }, 800);
+    }
+    
+    // ============================================ //
+    // CONFETTI EFFECT - BARIS 1301-1350
+    // ============================================ //
+    function startConfetti() {
+        const canvas = document.getElementById('confetti-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        let particles = [];
+        for (let i = 0; i < 150; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height - canvas.height,
+                size: Math.random() * 8 + 4,
+                speedY: Math.random() * 5 + 3,
+                speedX: (Math.random() - 0.5) * 2,
+                color: `hsl(${Math.random() * 60 + 340}, 70%, 60%)`,
+                rotation: Math.random() * 360,
+                rotationSpeed: (Math.random() - 0.5) * 10
+            });
+        }
+        
+        function animateConfetti() {
+            if (!canvas || !canvas.parentNode) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            let allGrounded = true;
+            for (let p of particles) {
+                p.y += p.speedY;
+                p.x += p.speedX;
+                p.rotation += p.rotationSpeed;
+                
+                if (p.y < canvas.height + 50) allGrounded = false;
+                
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.rotation * Math.PI / 180);
+                ctx.fillStyle = p.color;
+                ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size);
+                ctx.restore();
+            }
+            
+            if (!allGrounded) {
+                requestAnimationFrame(animateConfetti);
+            } else {
+                canvas.style.display = 'none';
+            }
+        }
+        
+        canvas.style.display = 'block';
+        animateConfetti();
+        
+        setTimeout(() => {
+            canvas.style.display = 'none';
+        }, 5000);
+    }
+    
+    // ============================================ //
+    // TAMBAH KE KALENDER - BARIS 1351-1400
+    // ============================================ //
+    function addToCalendar() {
+        const eventTitle = "Pernikahan Yudi & Ratih";
+        const eventLocation = "Jambur Kuta Gugung, Kec. Naman Teran, Kab. Karo, Sumatera Utara";
+        const eventDescription = "Dengan hormat,\nKami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami.\n\n📖 Akad Nikah: Jumat, 24 April 2026, 14:00 WIB\n🍽️ Resepsi: Sabtu, 25 April 2026, 08:00 WIB s/d selesai\n\n📍 Lokasi: Jambur Kuta Gugung, Kec. Naman Teran, Kab. Karo\n\nMerupakan suatu kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir.\n\nDoa restu dari Anda adalah hadiah terindah untuk kami.\n\nTerima kasih.\n\n~ Yudi & Ratih ~";
+        
+        const startDate = new Date(2026, 3, 25, 8, 0, 0);
+        const endDate = new Date(2026, 3, 25, 17, 0, 0);
+        
+        const formatDate = (date) => {
+            return date.toISOString().replace(/-|:|\.\d+/g, '');
+        };
+        
+        const startStr = formatDate(startDate);
+        const endStr = formatDate(endDate);
+        
+        const encodedTitle = encodeURIComponent(eventTitle);
+        const encodedLocation = encodeURIComponent(eventLocation);
+        const encodedDescription = encodeURIComponent(eventDescription);
+        
+        const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodedTitle}&dates=${startStr}/${endStr}&details=${encodedDescription}&location=${encodedLocation}&sf=true&output=xml`;
+        
+        const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Wedding Invitation//EN
+BEGIN:VEVENT
+UID:${Date.now()}@wedding-yudi-ratih
+DTSTAMP:${startStr}
+DTSTART:${startStr}
+DTEND:${endStr}
+SUMMARY:${eventTitle}
+DESCRIPTION:${eventDescription.replace(/\n/g, '\\n')}
+LOCATION:${eventLocation}
+END:VEVENT
+END:VCALENDAR`;
+        
+        const userChoice = confirm("Pilih metode tambah ke kalender:\n\n• Klik 'OK' untuk Google Calendar\n• Klik 'Batal' untuk download file .ics (Apple Calendar/Outlook)");
+        
+        if (userChoice) {
+            window.open(googleCalendarUrl, '_blank');
+            showCalendarNotification("✅ Berhasil! Silakan simpan acara di Google Calendar.");
+        } else {
+            const blob = new Blob([icsContent], { type: 'text/calendar' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.href = url;
+            link.download = 'Pernikahan_Yudi_Ratih.ics';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            showCalendarNotification("✅ File kalender berhasil diunduh! Buka file tersebut untuk menambahkan ke kalender Anda.");
+        }
+    }
+    
+    function showCalendarNotification(message) {
+        const notifDiv = document.getElementById('calendarNotification');
+        if (notifDiv) {
+            notifDiv.innerHTML = `<div class="calendar-success"><i class="fas fa-check-circle"></i> ${message}</div>`;
+            setTimeout(() => {
+                notifDiv.innerHTML = '';
+            }, 4000);
+        }
+    }
+    
+    // ============================================ //
+    // ADD PARTNER FUNCTION - BARIS 1401-1450
+    // ============================================ //
+    function addPartner(name) {
+        if (!name) return "";
+        let clean = name.trim();
+        if (clean.toLowerCase().includes('partner')) return clean;
+        if (clean.includes('&')) return clean + " & Partner";
+        return clean + " & Partner";
+    }
+    
+    // ============================================ //
+    // DATA LOKASI DENAH - BARIS 1451-1500
+    // ============================================ //
+    const locations = [
+        { name: "📍 LOKASI PESTA", x: 400, y: 250, icon: "fa-map-marker-alt", type: "pesta", desc: "Resepsi Pernikahan Yudi & Ratih" },
+        { name: "🕌 Masjid Nur Hidayah", x: 250, y: 350, icon: "fa-mosque", type: "masjid", desc: "Masjid Nur Hidayah" },
+        { name: "⛪ GBKP Kuta Gugung", x: 600, y: 380, icon: "fa-church", type: "gereja", desc: "Gereja GBKP Kuta Gugung" },
+        { name: "☕ Fefica Cafe", x: 500, y: 180, icon: "fa-mug-hot", type: "cafe", desc: "Fefica Cafe" },
+        { name: "🍗 Lesehan Pak RG 99", x: 350, y: 450, icon: "fa-utensils", type: "warung", desc: "Lesehan Pak RG 99" },
+        { name: "🍜 Warung Bakso Muslim", x: 150, y: 480, icon: "fa-bowl-food", type: "warung", desc: "Warung Bakso Muslim AL Husna" },
+        { name: "🏔️ Pulu Toraja", x: 180, y: 100, icon: "fa-mountain", type: "wisata", desc: "Tempat Wisata Pulu Toraja" },
+        { name: "🏫 Foursety Lau", x: 320, y: 80, icon: "fa-building", type: "umum", desc: "Foursety Lau" }
+    ];
+    
+    const roads = [
+        { x1: 0, y1: 250, x2: 800, y2: 250, name: "Jalan Utama Kuta Gugung" },
+        { x1: 0, y1: 400, x2: 800, y2: 400, name: "Jalan Lintas Desa" },
+        { x1: 400, y1: 0, x2: 400, y2: 600, name: "Jalan Tengah" },
+        { x1: 250, y1: 0, x2: 250, y2: 600, name: "Jalan Barat" }
+    ];
+    
+    function generateMap() {
+        const map = document.getElementById('denahMap');
+        if (!map) return;
+        
+        map.innerHTML = '';
+        map.style.width = '800px';
+        map.style.height = '500px';
+        map.style.position = 'relative';
+        map.style.background = '#d9cec0';
+        map.style.backgroundImage = 'linear-gradient(to right, rgba(174,143,122,0.2) 1px, transparent 1px), linear-gradient(to bottom, rgba(174,143,122,0.2) 1px, transparent 1px)';
+        map.style.backgroundSize = '30px 30px';
+        
+        // Gambar jalan
+        roads.forEach(road => {
+            const roadDiv = document.createElement('div');
+            roadDiv.style.position = 'absolute';
+            if (road.x1 === road.x2) {
+                roadDiv.style.left = `${road.x1}px`;
+                roadDiv.style.top = '0';
+                roadDiv.style.width = '6px';
+                roadDiv.style.height = '100%';
+                roadDiv.style.backgroundColor = '#c9b69a';
+                roadDiv.style.transform = 'translateX(-50%)';
+            } else {
+                roadDiv.style.left = '0';
+                roadDiv.style.top = `${road.y1}px`;
+                roadDiv.style.width = '100%';
+                roadDiv.style.height = '6px';
+                roadDiv.style.backgroundColor = '#c9b69a';
+                roadDiv.style.transform = 'translateY(-50%)';
+            }
+            map.appendChild(roadDiv);
+            
+            const nameDiv = document.createElement('div');
+            nameDiv.style.position = 'absolute';
+            nameDiv.style.fontSize = '9px';
+            nameDiv.style.background = 'rgba(255,255,255,0.8)';
+            nameDiv.style.padding = '2px 6px';
+            nameDiv.style.borderRadius = '10px';
+            nameDiv.style.whiteSpace = 'nowrap';
+            nameDiv.style.zIndex = '5';
+            if (road.x1 === road.x2) {
+                nameDiv.style.left = `${road.x1 + 8}px`;
+                nameDiv.style.top = '50%';
+                nameDiv.style.transform = 'translateY(-50%)';
+            } else {
+                nameDiv.style.left = '50%';
+                nameDiv.style.top = `${road.y1 - 12}px`;
+                nameDiv.style.transform = 'translateX(-50%)';
+            }
+            nameDiv.innerHTML = `🛣️ ${road.name}`;
+            map.appendChild(nameDiv);
+        });
+        
+        // Tambahkan marker
+        locations.forEach(loc => {
+            const marker = document.createElement('div');
+            marker.className = 'map-marker';
+            marker.style.position = 'absolute';
+            marker.style.left = `${loc.x}px`;
+            marker.style.top = `${loc.y}px`;
+            marker.style.transform = 'translate(-50%, -50%)';
+            marker.style.cursor = 'pointer';
+            marker.style.zIndex = '20';
+            
+            let markerClass = 'marker-icon';
+            if (loc.type === 'pesta') markerClass += ' marker-pesta';
+            
+            marker.innerHTML = `<div class="${markerClass}"><i class="fas ${loc.icon}"></i> ${loc.name}</div>`;
+            
+            marker.addEventListener('click', () => {
+                alert(`📍 ${loc.name}\n${loc.desc || 'Terletak di sekitar Kuta Gugung'}`);
+                showToast(`📍 ${loc.name}`, 'info');
+            });
+            
+            map.appendChild(marker);
+        });
+    }
+    
+    // ============================================ //
+    // ZOOM FUNCTIONS - BARIS 1501-1550
+    // ============================================ //
+    function applyZoom() {
+        if (!mapElement) return;
+        const newWidth = 800 * currentZoom;
+        const newHeight = 500 * currentZoom;
+        mapElement.style.width = `${newWidth}px`;
+        mapElement.style.height = `${newHeight}px`;
+    }
+    
+    function zoomIn() {
+        if (currentZoom < 2) {
+            currentZoom += 0.2;
+            applyZoom();
+            showToast(`🔍 Zoom: ${Math.round(currentZoom * 100)}%`, 'info');
+        }
+    }
+    
+    function zoomOut() {
+        if (currentZoom > 0.6) {
+            currentZoom -= 0.2;
+            applyZoom();
+            showToast(`🔍 Zoom: ${Math.round(currentZoom * 100)}%`, 'info');
+        }
+    }
+    
+    function resetZoom() {
+        currentZoom = 1;
+        applyZoom();
+        if (mapWrapper) mapWrapper.scrollLeft = 200;
+        showToast(`⟳ Zoom reset ke 100%`, 'info');
+    }
+    
+    // ============================================ //
+    // INPUT NAMA HANDLER - BARIS 1551-1600
+    // ============================================ //
+    const namaInput = document.getElementById('namaTamuInput');
     const btnMulai = document.getElementById('btnMulai');
     const guestNameDisplay = document.getElementById('guestNameDisplay');
     const salamPersonal = document.getElementById('salamPersonal');
+    const namaTamuForm = document.getElementById('namaTamuForm');
     
-    function showToast(msg) {
-        const toast = document.getElementById('toast');
-        toast.innerHTML = msg;
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 2500);
-    }
-    
-    btnMulai.addEventListener('click', () => {
-        let name = namaInput.value.trim();
-        if (!name) {
-            showToast('Masukkan nama Anda dulu ya!');
+    btnMulai.addEventListener('click', function() {
+        let nama = namaInput.value.trim();
+        if (nama === "") {
+            showToast("⚠️ Silakan masukkan nama Anda terlebih dahulu!", "error");
             namaInput.focus();
             return;
         }
-        guestName = name + (name.includes('&') ? '' : ' & Partner');
-        guestNameDisplay.innerText = guestName;
-        inputPageEl.style.display = 'none';
-        coverPageEl.style.display = 'flex';
-        showToast(`Selamat datang, ${guestName}`);
+        
+        guestOriginalName = nama;
+        guestDisplayName = addPartner(nama);
+        
+        localStorage.setItem('wedding_guest_name', guestOriginalName);
+        localStorage.setItem('wedding_guest_display', guestDisplayName);
+        
+        guestNameDisplay.innerHTML = guestDisplayName;
+        
+        inputPage.style.display = 'none';
+        coverPage.style.display = 'flex';
+        showToast(`✨ Selamat datang, ${guestDisplayName}!`, 'success');
     });
     
-    namaInput.addEventListener('keypress', (e) => {
+    namaInput.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') btnMulai.click();
     });
     
-    // ==================== OPEN INVITATION ====================
-    const btnBuka = document.getElementById('btnBukaUndangan');
-    const scrollIndicator = document.getElementById('scrollIndicator');
+    // ============================================ //
+    // BUKA UNDANGAN HANDLER - BARIS 1601-1650
+    // ============================================ //
+    const btnBukaUndangan = document.getElementById('btnBukaUndangan');
     
-    btnBuka.addEventListener('click', () => {
-        salamPersonal.innerHTML = `Kepada Yth. <strong>${guestName}</strong>, dengan hormat kami mengundang Bapak/Ibu/Saudara/i untuk hadir di acara pernikahan kami.`;
-        coverPageEl.style.display = 'none';
-        mainContentEl.style.display = 'block';
-        const namaTamuField = document.getElementById('namaTamu');
-        if (namaTamuField) namaTamuField.value = namaInput.value;
-        showToast('🎉 Selamat datang di undangan kami!');
+    btnBukaUndangan.addEventListener('click', function() {
+        salamPersonal.innerHTML = `Kepada Yth. <strong>${guestDisplayName}</strong>, dengan segala hormat dan kebahagiaan, kami mengundang Bapak/Ibu/Saudara/i untuk hadir dan memberikan doa restu pada acara pernikahan kami.`;
         
-        startCountdown();
+        if (namaTamuForm) {
+            namaTamuForm.value = guestOriginalName;
+            namaTamuForm.readOnly = true;
+            namaTamuForm.style.background = "#f0ebe4";
+        }
         
-        // Play music
-        const music = document.getElementById('bgMusic');
-        music.play().catch(e => console.log('Autoplay blocked'));
+        coverPage.style.display = 'none';
+        mainContent.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         
-        // Trigger initial reveal check
+        startAutoSlide();
+        startMusic();
+        generateMap();
+        startConfetti();
+        showToast("🎉 Selamat datang di undangan pernikahan kami!", "success");
+        
+        mapElement = document.getElementById('denahMap');
+        mapWrapper = document.getElementById('mapWrapper');
+        
+        const zoomInBtn = document.getElementById('zoomInBtn');
+        const zoomOutBtn = document.getElementById('zoomOutBtn');
+        const resetZoomBtn = document.getElementById('resetZoomBtn');
+        
+        if (zoomInBtn) zoomInBtn.addEventListener('click', zoomIn);
+        if (zoomOutBtn) zoomOutBtn.addEventListener('click', zoomOut);
+        if (resetZoomBtn) resetZoomBtn.addEventListener('click', resetZoom);
+        
+        const directionBtn = document.getElementById('directionBtn');
+        if (directionBtn) {
+            directionBtn.addEventListener('click', () => {
+                alert("🚗 PETUNJUK ARAH KE LOKASI PESTA:\n\n1. Dari Jalan Utama Kuta Gugung, masuk ke Jalan Tengah\n2. Ikuti jalan sekitar 200 meter\n3. Lokasi Pesta (Jambur Kuta Gugung) berada di sisi kanan jalan\n4. Tersedia area parkir yang luas\n\n📍 Landmark terdekat: Fefica Cafe (di seberang lokasi pesta)");
+            });
+        }
+        
+        // Trigger initial scroll reveal check
         setTimeout(() => {
             window.dispatchEvent(new Event('scroll'));
         }, 100);
     });
     
-    scrollIndicator?.addEventListener('click', () => {
-        window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
-    });
-    
-    // ==================== COUNTDOWN ====================
-    function startCountdown() {
-        const target = new Date(2026, 3, 25, 8, 0, 0);
-        function update() {
-            const now = new Date();
-            const diff = target - now;
-            if (diff <= 0) return;
-            const days = Math.floor(diff / (1000*60*60*24));
-            const hours = Math.floor((diff % (86400000)) / 3600000);
-            const minutes = Math.floor((diff % 3600000) / 60000);
-            const seconds = Math.floor((diff % 60000) / 1000);
-            document.getElementById('days').innerText = days < 10 ? '0'+days : days;
-            document.getElementById('hours').innerText = hours < 10 ? '0'+hours : hours;
-            document.getElementById('minutes').innerText = minutes < 10 ? '0'+minutes : minutes;
-            document.getElementById('seconds').innerText = seconds < 10 ? '0'+seconds : seconds;
-        }
-        update();
-        setInterval(update, 1000);
+    // ============================================ //
+    // MUSIC CONTROL - BARIS 1651-1700
+    // ============================================ //
+    function startMusic() {
+        bgMusic.play().then(() => {
+            isMusicPlaying = true;
+            musicToggle.classList.add('playing');
+            musicIcon.className = 'fas fa-music';
+        }).catch(() => {
+            console.log('Audio autoplay prevented');
+        });
     }
     
-    // ==================== MUSIC ====================
-    const music = document.getElementById('bgMusic');
-    const musicToggle = document.getElementById('musicToggle');
-    let isPlaying = false;
-    musicToggle.addEventListener('click', () => {
-        if (isPlaying) {
-            music.pause();
-            musicToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+    function toggleMusic() {
+        if (isMusicPlaying) {
+            bgMusic.pause();
+            isMusicPlaying = false;
+            musicToggle.classList.remove('playing');
+            musicIcon.className = 'fas fa-volume-mute';
+            showToast("🔇 Musik dihentikan", "info");
         } else {
-            music.play();
-            musicToggle.innerHTML = '<i class="fas fa-music"></i>';
+            bgMusic.play().then(() => {
+                isMusicPlaying = true;
+                musicToggle.classList.add('playing');
+                musicIcon.className = 'fas fa-music';
+                showToast("🎵 Musik diputar", "success");
+            }).catch(() => {
+                showToast("⚠️ Gagal memutar musik", "error");
+            });
         }
-        isPlaying = !isPlaying;
-    });
+    }
     
-    // ==================== BACK TO TOP ====================
-    const backBtn = document.getElementById('backToTop');
-    backBtn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    if (musicToggle) musicToggle.addEventListener('click', toggleMusic);
     
-    // ==================== RSVP ====================
-    const rsvpForm = document.getElementById('rsvpForm');
-    const ucapanList = document.getElementById('ucapanList');
+    // ============================================ //
+    // SLIDER GALERI - BARIS 1701-1750
+    // ============================================ //
+    const sliderContainer = document.getElementById('sliderContainer');
+    const slides = document.querySelectorAll('.slider-slide');
+    const prevBtn = document.getElementById('prevSlide');
+    const nextBtn = document.getElementById('nextSlide');
+    const dotsContainer = document.getElementById('sliderDots');
+    let currentIndex = 0;
+    const totalSlides = slides.length;
+    let autoSlideInterval;
     
-    function loadMessages() {
-        const msgs = JSON.parse(localStorage.getItem('weddingMessages') || '[]');
-        ucapanList.innerHTML = msgs.slice(0, 20).map(m => `
-            <div style="background: #f7efe8; border-radius: 16px; padding: 12px; margin-bottom: 10px;">
-                <strong style="color: var(--primary-dark);">${escapeHtml(m.nama)}</strong>
-                <p style="margin-top: 6px; font-size: 13px;">${escapeHtml(m.ucapan)}</p>
-                <span style="font-size: 10px; color: var(--gray);">${m.status} • ${new Date(m.waktu).toLocaleDateString()}</span>
-            </div>
-        `).join('');
+    function updateSlider() {
+        if (sliderContainer) {
+            sliderContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+        document.querySelectorAll('.dot').forEach((dot, idx) => {
+            dot.classList.toggle('active', idx === currentIndex);
+        });
+    }
+    
+    function nextSlide() {
+        currentIndex = (currentIndex + 1) % totalSlides;
+        updateSlider();
+        resetAutoSlide();
+    }
+    
+    function prevSlide() {
+        currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+        updateSlider();
+        resetAutoSlide();
+    }
+    
+    function createDots() {
+        if (!dotsContainer) return;
+        dotsContainer.innerHTML = '';
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if (i === currentIndex) dot.classList.add('active');
+            dot.addEventListener('click', () => {
+                currentIndex = i;
+                updateSlider();
+                resetAutoSlide();
+            });
+            dotsContainer.appendChild(dot);
+        }
+    }
+    
+    function startAutoSlide() {
+        if (autoSlideInterval) clearInterval(autoSlideInterval);
+        autoSlideInterval = setInterval(nextSlide, 3000);
+    }
+    
+    function resetAutoSlide() {
+        clearInterval(autoSlideInterval);
+        startAutoSlide();
+    }
+    
+    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+    createDots();
+    if (sliderContainer) updateSlider();
+    
+    // ============================================ //
+    // COUNTDOWN TIMER - BARIS 1751-1800
+    // ============================================ //
+    function getTargetDate() {
+        return new Date(2026, 3, 25, 8, 0, 0);
+    }
+    
+    function updateCountdown() {
+        const now = new Date();
+        const target = getTargetDate();
+        const diff = target - now;
+        
+        const daysEl = document.getElementById('days');
+        const hoursEl = document.getElementById('hours');
+        const minutesEl = document.getElementById('minutes');
+        const secondsEl = document.getElementById('seconds');
+        
+        if (diff <= 0) {
+            if (daysEl) daysEl.innerText = '00';
+            if (hoursEl) hoursEl.innerText = '00';
+            if (minutesEl) minutesEl.innerText = '00';
+            if (secondsEl) secondsEl.innerText = '00';
+            return;
+        }
+        
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (86400000)) / (3600000));
+        const minutes = Math.floor((diff % 3600000) / 60000);
+        const seconds = Math.floor((diff % 60000) / 1000);
+        
+        if (daysEl) daysEl.innerText = days < 10 ? '0' + days : days;
+        if (hoursEl) hoursEl.innerText = hours < 10 ? '0' + hours : hours;
+        if (minutesEl) minutesEl.innerText = minutes < 10 ? '0' + minutes : minutes;
+        if (secondsEl) secondsEl.innerText = seconds < 10 ? '0' + seconds : seconds;
+    }
+    
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+    
+    // ============================================ //
+    // KONFIRMASI KEHADIRAN - BARIS 1801-1850
+    // ============================================ //
+    const form = document.getElementById('formKehadiran');
+    const statusSelect = document.getElementById('kehadiranStatus');
+    const jumlahGroup = document.getElementById('jumlahOrangGroup');
+    const jumlahInput = document.getElementById('jumlahOrang');
+    const ucapanText = document.getElementById('ucapanTamu');
+    const notifDiv = document.getElementById('notifKehadiran');
+    const listUcapanDiv = document.getElementById('listUcapan');
+    
+    if (statusSelect) {
+        statusSelect.addEventListener('change', function() {
+            if (jumlahGroup) {
+                jumlahGroup.style.display = this.value === 'Hadir' ? 'block' : 'none';
+            }
+        });
+    }
+    
+    function loadUcapan() {
+        const stored = localStorage.getItem('weddingUcapan');
+        if (stored && listUcapanDiv) {
+            const list = JSON.parse(stored);
+            listUcapanDiv.innerHTML = list.slice(0, 30).map(item => 
+                `<div style="background:#f7efe8;border-radius:16px;padding:12px;margin-bottom:10px;transition:0.2s;border-left:3px solid var(--gold);">
+                    <strong style="color: var(--primary-dark);">${escapeHtml(item.nama)}</strong>
+                    <p style="margin-top: 6px; font-size: 13px;">${escapeHtml(item.ucapan)}</p>
+                    <span style="font-size: 10px; color: var(--gray);">📅 ${new Date(item.waktu).toLocaleDateString('id-ID')} • ${item.status}</span>
+                </div>`
+            ).join('');
+        }
     }
     
     function escapeHtml(str) {
@@ -861,47 +2589,129 @@
         return str.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'})[m]);
     }
     
-    rsvpForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const nama = document.getElementById('namaTamu').value.trim();
-        const status = document.getElementById('kehadiran').value;
-        const ucapan = document.getElementById('ucapan').value.trim() || 'Semoga bahagia selalu!';
-        if (!nama || !status) {
-            showToast('Lengkapi nama dan status kehadiran!');
-            return;
-        }
-        const messages = JSON.parse(localStorage.getItem('weddingMessages') || '[]');
-        messages.unshift({ nama, ucapan, status, waktu: new Date().toISOString() });
-        if (messages.length > 30) messages.pop();
-        localStorage.setItem('weddingMessages', JSON.stringify(messages));
-        loadMessages();
-        document.getElementById('kehadiran').value = '';
-        document.getElementById('ucapan').value = '';
-        showToast('Terima kasih! Konfirmasi tersampaikan 🎉');
-    });
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nama = namaTamuForm ? namaTamuForm.value.trim() : '';
+            const status = statusSelect ? statusSelect.value : '';
+            if (!nama || !status) {
+                if (notifDiv) {
+                    notifDiv.innerHTML = '<span style="color: red;"><i class="fas fa-exclamation-triangle"></i> Lengkapi data!</span>';
+                }
+                return;
+            }
+            let jumlah = '';
+            if (status === 'Hadir' && jumlahInput && jumlahInput.value) {
+                jumlah = `${jumlahInput.value} orang`;
+            }
+            const ucapan = (ucapanText ? ucapanText.value.trim() : '') || "Semoga bahagia selalu!";
+            
+            let existing = JSON.parse(localStorage.getItem('weddingUcapan') || '[]');
+            existing.unshift({
+                nama: nama,
+                ucapan: ucapan + (jumlah ? ` (Hadir: ${jumlah})` : ` (${status})`),
+                status: status,
+                waktu: new Date().toISOString()
+            });
+            if (existing.length > 50) existing.pop();
+            localStorage.setItem('weddingUcapan', JSON.stringify(existing));
+            loadUcapan();
+            
+            if (statusSelect) statusSelect.value = '';
+            if (jumlahGroup) jumlahGroup.style.display = 'none';
+            if (jumlahInput) jumlahInput.value = '';
+            if (ucapanText) ucapanText.value = '';
+            if (notifDiv) {
+                notifDiv.innerHTML = '<span style="color: green;"><i class="fas fa-check-circle"></i> Terima kasih! Konfirmasi tersampaikan.</span>';
+                setTimeout(() => { notifDiv.innerHTML = ''; }, 3000);
+            }
+            startConfetti();
+            showToast("✅ Konfirmasi berhasil dikirim!", "success");
+        });
+    }
     
-    // ==================== COPY BUTTON ====================
+    // ============================================ //
+    // COPY BUTTON - BARIS 1851-1900
+    // ============================================ //
     document.querySelectorAll('.copy-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const rek = btn.getAttribute('data-rek');
-            navigator.clipboard.writeText(rek);
-            const oldText = btn.innerHTML;
-            btn.innerHTML = '✓ Tersalin';
-            setTimeout(() => btn.innerHTML = oldText, 1500);
-            showToast('Nomor rekening tersalin!');
+        btn.addEventListener('click', function() {
+            const rekText = this.getAttribute('data-rek') || '081361326617';
+            navigator.clipboard.writeText(rekText).then(() => {
+                const originalText = this.innerHTML;
+                this.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
+                setTimeout(() => { this.innerHTML = originalText; }, 1500);
+                showToast("📋 Nomor berhasil disalin!", "success");
+                startConfetti();
+            });
         });
     });
     
-    // ==================== INIT ====================
-    loadMessages();
-    if (!localStorage.getItem('weddingMessages')) {
-        localStorage.setItem('weddingMessages', JSON.stringify([
-            { nama: "Keluarga Besar", ucapan: "Selamat menempuh hidup baru! Barokallah.", status: "Hadir", waktu: new Date().toISOString() }
-        ]));
-        loadMessages();
+    // ============================================ //
+    // TOMBOL KALENDER - BARIS 1901-1950
+    // ============================================ //
+    const addToCalendarBtn = document.getElementById('addToCalendarBtn');
+    if (addToCalendarBtn) {
+        addToCalendarBtn.addEventListener('click', addToCalendar);
     }
     
-    console.log('✨ Undangan dengan Scroll Up & Down Animation aktif! ✨');
+    // ============================================ //
+    // LOCAL STORAGE INIT - BARIS 1951-2000
+    // ============================================ //
+    if (!localStorage.getItem('weddingUcapan')) {
+        const sampleUcapan = [
+            { nama: "Keluarga Besar", ucapan: "Selamat menempuh hidup baru, semoga barokah selalu. Aamiin.", status: "Hadir", waktu: new Date().toISOString() },
+            { nama: "Sahabat Seperjuangan", ucapan: "Semoga menjadi keluarga yang sakinah mawaddah warahmah! Bahagia selalu!", status: "Hadir", waktu: new Date().toISOString() },
+            { nama: "Rekan Kerja", ucapan: "Selamat berbahagia untuk Yudi & Ratih! Semoga langgeng selalu.", status: "Hadir", waktu: new Date().toISOString() }
+        ];
+        localStorage.setItem('weddingUcapan', JSON.stringify(sampleUcapan));
+    }
+    loadUcapan();
+    
+    // ============================================ //
+    // RESTORE SAVED NAME - BARIS 2001-2050
+    // ============================================ //
+    const savedName = localStorage.getItem('wedding_guest_name');
+    const savedDisplay = localStorage.getItem('wedding_guest_display');
+    if (savedName && savedDisplay) {
+        guestOriginalName = savedName;
+        guestDisplayName = savedDisplay;
+        inputPage.style.display = 'none';
+        coverPage.style.display = 'flex';
+        guestNameDisplay.innerHTML = guestDisplayName;
+    }
+    
+    // ============================================ //
+    // WINDOW RESIZE HANDLER - BARIS 2051-2100
+    // ============================================ //
+    window.addEventListener('resize', () => {
+        // Adjust any responsive elements
+        if (mapElement) {
+            applyZoom();
+        }
+    });
+    
+    // Prevent zoom on double tap for mobile
+    document.addEventListener('touchstart', (e) => {
+        if (e.touches.length > 1) {
+            e.preventDefault();
+        }
+    }, { passive: false });
+    
+    // Add smooth scroll behavior
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+    
+    console.log('✨ Undangan Pernikahan Yudi & Ratih - Premium Edition dengan Scroll Up & Down Animation ✨');
+    console.log('📅 Tanggal Pernikahan: 25 April 2026');
+    console.log('📍 Lokasi: Jambur Kuta Gugung, Karo');
+    console.log('🎬 Fitur: Progress Bar, Direction Indicator, Back to Top, Scroll Reveal Animations');
 </script>
 </body>
 </html>
